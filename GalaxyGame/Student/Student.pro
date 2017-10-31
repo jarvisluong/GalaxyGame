@@ -15,6 +15,9 @@ CONFIG += c++14
 
 SOURCES += \
     main.cc\
+    eventhandler.cc \
+    galaxy.cc \
+    statistics.cc
 
 HEADERS  += \
     galaxy.hh \
