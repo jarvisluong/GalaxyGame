@@ -1,4 +1,5 @@
 #include "statistics.hh"
+#include "stateexception.hh"
 
 Student::Statistics::Statistics()
 {
@@ -35,6 +36,9 @@ void Student::Statistics::addPoints(unsigned amount)
 
 void Student::Statistics::reducePoints(unsigned amount)
 {
+    if (amount > _points) {
+        throw Common::StateException("Cannot reduce more points than current points");
+    }
     _points -= amount;
 }
 
