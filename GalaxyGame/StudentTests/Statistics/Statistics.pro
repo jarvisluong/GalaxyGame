@@ -11,12 +11,14 @@ QT       -= gui
 TARGET = statisticstest
 CONFIG   += console
 CONFIG   -= app_bundle
-
+CONFIG += c++14
 TEMPLATE = app
 
 
 SOURCES += statisticstest.cc \
-           ../../Student/statistics.cc
+           ../../Student/statistics.cc \
+    ../../Course/gameexception.cc \
+    ../../Course/stateexception.cc
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 HEADERS += \
