@@ -21,7 +21,8 @@ void Student::Galaxy::addShip(std::shared_ptr<Common::Ship> ship)
 
 void Student::Galaxy::removeShip(std::shared_ptr<Common::Ship> ship)
 {
-
+    auto iter_find_ship = std::find(_ships_in_galaxy.begin(), _ships_in_galaxy.end(), ship);
+    _ships_in_galaxy.erase(iter_find_ship);
 }
 
 void Student::Galaxy::addStarSystem(std::shared_ptr<Common::StarSystem> starSystem)
