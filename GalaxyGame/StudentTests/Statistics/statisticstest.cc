@@ -9,7 +9,7 @@ public:
     StatisticsTest();
 
 private Q_SLOTS:
-    void testCase1();
+    void initStatistics();
 };
 
 StatisticsTest::StatisticsTest()
@@ -17,9 +17,13 @@ StatisticsTest::StatisticsTest()
 }
 
 
-void StatisticsTest::testCase1()
+void StatisticsTest::initStatistics()
 {
-    QVERIFY2(true, "Failure");
+    Student::Statistics d;
+    QCOMPARE(d.getSavedShips(), 0u);
+    QCOMPARE(d.getLostShips(), 0u);
+    QCOMPARE(d.getPoints(), 0u);
+    QCOMPARE(d.getCreditBalance(), 0u);
 }
 
 QTEST_APPLESS_MAIN(StatisticsTest)

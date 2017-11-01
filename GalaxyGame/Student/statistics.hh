@@ -24,7 +24,10 @@ public:
      int getCreditBalance() const;
 
 private:
-
+    unsigned _number_of_saved_ships;
+    unsigned _number_of_lost_ships;
+    unsigned _points;
+    unsigned _credits;
 };
 }//Student
 
