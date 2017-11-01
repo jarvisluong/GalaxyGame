@@ -2,7 +2,7 @@
 #include "stateexception.hh"
 #include <QtDebug>
 
-#define MAX_LOAN_ALLOWANCE -50
+const int MAX_LOAN_ALLOWANCE = -50;
 
 Student::Statistics::Statistics()
 {
@@ -72,6 +72,9 @@ void Student::Statistics::addCredits(unsigned amount)
 void Student::Statistics::reduceCredits(unsigned amount)
 {
     invariant();
+    if (_credits - amount <= MAX_LOAN_ALLOWANCE) {
+        throw Common::StateException("Cannot have lower credits than allowance");
+    }
     _credits -= amount;
     invariant();
 }
@@ -84,6 +87,6 @@ int Student::Statistics::getCreditBalance() const
 
 void Student::Statistics::invariant() const
 {
-    Q_ASSERT(getPoints() >= 0);
-    Q_ASSERT(getCreditBalance() > MAX_LOAN_ALLOWANCE);
+    Q_ASSERT(_points >= 0);
+    Q_ASSERT(_credits > MAX_LOAN_ALLOWANCE);
 }

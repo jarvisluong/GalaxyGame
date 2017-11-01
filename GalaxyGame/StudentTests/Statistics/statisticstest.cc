@@ -1,6 +1,8 @@
+#include "statistics.hh"
+#include "stateexception.hh"
 #include <QString>
 #include <QtTest>
-#include "statistics.hh"
+
 class StatisticsTest : public QObject
 {
     Q_OBJECT
@@ -57,8 +59,7 @@ void StatisticsTest::testRemovePoints()
 {
     Student::Statistics d;
     d.addPoints(3);
-    d.reducePoints(4);
-    QCOMPARE(d.getPoints(), 1u);
+    QVERIFY_EXCEPTION_THROWN(d.reducePoints(4), Common::StateException);
 }
 
 void StatisticsTest::testAddCredits()
@@ -70,7 +71,9 @@ void StatisticsTest::testAddCredits()
 
 void StatisticsTest::testRemoveCredits()
 {
-
+    Student::Statistics d;
+    QVERIFY_EXCEPTION_THROWN(d.reduceCredits(50), Common::StateException);
+    QVERIFY_EXCEPTION_THROWN(d.reduceCredits(51), Common::StateException);
 }
 
 QTEST_APPLESS_MAIN(StatisticsTest)
