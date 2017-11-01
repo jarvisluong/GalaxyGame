@@ -28,6 +28,8 @@ private:
     unsigned _number_of_lost_ships;
     unsigned _points;
     int _credits;
+
+    void invariant() const;
 };
 }//Student
 
