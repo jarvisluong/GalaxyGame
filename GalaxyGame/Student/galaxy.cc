@@ -16,7 +16,11 @@ Student::Galaxy::~Galaxy()
 void Student::Galaxy::addShip(std::shared_ptr<Common::Ship> ship)
 {
     // TODO: Add check if the ship is already in the system
-    _ships_in_galaxy.push_back(ship);
+    // Resolved this TODO
+    auto iter_find_ship = std::find(_ships_in_galaxy.begin(), _ships_in_galaxy.end(), ship);
+    if(iter_find_ship == _ships_in_galaxy.end()) {
+        _ships_in_galaxy.push_back(ship);
+    }
 }
 
 void Student::Galaxy::removeShip(std::shared_ptr<Common::Ship> ship)
@@ -28,7 +32,12 @@ void Student::Galaxy::removeShip(std::shared_ptr<Common::Ship> ship)
 void Student::Galaxy::addStarSystem(std::shared_ptr<Common::StarSystem> starSystem)
 {
     // TODO: Add check if the star system is already in the system
-    _star_systems_in_galaxy.push_back(starSystem);
+    // Resolved this TODO
+    auto iter_find_star_system = std::find(_star_systems_in_galaxy.begin(), _star_systems_in_galaxy.end(),
+                                           starSystem);
+    if(iter_find_star_system == _star_systems_in_galaxy.end()) {
+         _star_systems_in_galaxy.push_back(starSystem);
+    }
 }
 
 std::shared_ptr<Common::IGalaxy::ShipVector> Student::Galaxy::getShips()
