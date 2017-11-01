@@ -10,7 +10,8 @@
 * @brief Määrittelee rajapinnan tilastoluokalle.
 *
 * @invariant getCreditBalance() > MAX_LOAN_ALLOWANCE
-* @invariant getPoints() > 0
+* MAX_LOAN_ALLOWANCE on raja-arvo sille, paljonko pelaajalla voi olla velkaa
+* Varsinaisen arvon saa päättää luokan toteuttaja.
 */
 
 
@@ -65,7 +66,7 @@
 * @fn virtual void Common::IStatistics::reducePoints(unsigned amount) = 0;
 * @brief Vähentää pelaajan pisteitä.
 * @param amount Vähennettävien pisteiden määrä.
-* @exception StateException, jos invariantti rikkoutuu
+* @exception StateException, jos pisteet menisivät alle nollan
 * @post Poikkeustakuu: vahva
 */
 

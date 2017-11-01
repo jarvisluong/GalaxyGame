@@ -13,8 +13,10 @@ namespace Common {
 /**
  * @brief Defines the interface for statistics class.
  *
+ * @invariant getPoints() >= 0
  * @invariant getCreditBalance() > MAX_LOAN_ALLOWANCE
- * @invariant getPoints() > 0
+ * MAX_LOAN_ALLOWANCE is the limit that the player is allowed to have debt.
+ * The actual value is to be decided by the implementer of inherited class.
  */
 #endif
 class IStatistics
@@ -79,7 +81,7 @@ public:
     /**
      * @brief Reduces the points of the player.
      * @param amount Points to be reduced.
-     * @exception StateException, if the invariant gets broken.
+     * @exception StateException, if points would go under zero
      * @post Exception guarantee: strong
      */
 #endif
@@ -87,7 +89,7 @@ public:
 
 #ifdef English_dox
     /**
-     * @return The total points of the players.
+     * @return The total points of the player.
      * @post Exception guarantee: nothrow
      */
 #endif
