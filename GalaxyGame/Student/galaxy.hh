@@ -28,6 +28,8 @@ public:
     std::shared_ptr<Common::StarSystem> getStarSystemById(unsigned id);
 
 private:
+    ShipVector _ships_in_galaxy;
+    Common::StarSystem::StarSystemVector _star_systems_in_galaxy;
 
 };
 }//Student
