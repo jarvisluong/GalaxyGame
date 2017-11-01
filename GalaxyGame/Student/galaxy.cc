@@ -79,7 +79,7 @@ std::shared_ptr<Common::StarSystem> Student::Galaxy::getStarSystemByName(std::st
     if (iter_found_system == _star_systems_in_galaxy.end()) {
         throw Common::ObjectNotFoundException("The Star System with the given name does not exist");
     }
-    return &iter_found_system;
+    return *iter_found_system;
 }
 
 std::shared_ptr<Common::StarSystem> Student::Galaxy::getStarSystemById(unsigned id)
@@ -94,5 +94,5 @@ std::shared_ptr<Common::StarSystem> Student::Galaxy::getStarSystemById(unsigned 
     if (iter_found_system == _star_systems_in_galaxy.end()) {
         throw Common::ObjectNotFoundException("The Star System with the given id does not exist");
     }
-    return &iter_found_system;
+    return *iter_found_system;
 }
