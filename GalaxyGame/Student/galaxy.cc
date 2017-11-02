@@ -2,7 +2,7 @@
 #include "objectnotfoundexception.hh"
 #include <stdlib.h>
 #include <algorithm>
-
+#include "stateexception.hh"
 Student::Galaxy::Galaxy()
 {
 
@@ -15,29 +15,30 @@ Student::Galaxy::~Galaxy()
 
 void Student::Galaxy::addShip(std::shared_ptr<Common::Ship> ship)
 {
-    // TODO: Add check if the ship is already in the system
-    // Resolved this TODO
     auto iter_find_ship = std::find(_ships_in_galaxy.begin(), _ships_in_galaxy.end(), ship);
-    if(iter_find_ship == _ships_in_galaxy.end()) {
-        _ships_in_galaxy.push_back(ship);
+    if(iter_find_ship != _ships_in_galaxy.end()) {
+        throw Common::StateException("The ship is already in the galaxy");
     }
+    _ships_in_galaxy.push_back(ship);
 }
 
 void Student::Galaxy::removeShip(std::shared_ptr<Common::Ship> ship)
 {
     auto iter_find_ship = std::find(_ships_in_galaxy.begin(), _ships_in_galaxy.end(), ship);
+    if(iter_find_ship == _ships_in_galaxy.end()) {
+        throw Common::ObjectNotFoundException("The ship is not in the galaxy");
+    }
     _ships_in_galaxy.erase(iter_find_ship);
 }
 
 void Student::Galaxy::addStarSystem(std::shared_ptr<Common::StarSystem> starSystem)
 {
-    // TODO: Add check if the star system is already in the system
-    // Resolved this TODO
     auto iter_find_star_system = std::find(_star_systems_in_galaxy.begin(), _star_systems_in_galaxy.end(),
                                            starSystem);
-    if(iter_find_star_system == _star_systems_in_galaxy.end()) {
-         _star_systems_in_galaxy.push_back(starSystem);
+    if(iter_find_star_system != _star_systems_in_galaxy.end()) {
+         throw Common::StateException("The star system is already in the galaxy");
     }
+    _star_systems_in_galaxy.push_back(starSystem);
 }
 
 std::shared_ptr<Common::IGalaxy::ShipVector> Student::Galaxy::getShips()
