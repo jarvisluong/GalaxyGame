@@ -3,7 +3,6 @@
 #include "stateexception.hh"
 #include <stdlib.h>
 #include <algorithm>
-#include <iostream>
 
 Student::Galaxy::Galaxy()
 {
@@ -49,8 +48,20 @@ std::shared_ptr<Common::IGalaxy::ShipVector> Student::Galaxy::getShips()
 
 Common::StarSystem::StarSystemVector Student::Galaxy::getSystemsInRange(std::shared_ptr<Common::StarSystem> origin, int range)
 {
-    Common::StarSystem::StarSystemVector s;
-    return s;
+    if (!isSytemInGalaxy(origin)) {
+        throw Common::ObjectNotFoundException("The system is not in the galaxy");
+    }
+    Common::StarSystem::StarSystemVector output;
+    for (auto star_system : _star_systems_in_galaxy) {
+        double current_range = star_system->getCoordinates().distanceTo(origin->getCoordinates());
+        if (current_range == 0) {
+            continue;
+        }
+        if (current_range <= (double)range) {
+            output.push_back(star_system);
+        }
+    }
+    return output;
 }
 
 std::shared_ptr<Common::StarSystem> Student::Galaxy::getRandomSystem()
