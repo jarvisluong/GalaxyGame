@@ -32,7 +32,6 @@ public:
 
     bool isSytemInGalaxy(std::shared_ptr<Common::StarSystem> starSystem);
 
-    void setMainWindow(MainWindow* w);
 signals:
     void shipAddedAtCoordinates(int x, int y);
     void starSystemAddedAtCoordinates(int x, int y);
