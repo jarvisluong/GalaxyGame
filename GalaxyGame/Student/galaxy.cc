@@ -3,7 +3,7 @@
 #include "stateexception.hh"
 #include <stdlib.h>
 #include <algorithm>
-
+#include "mainwindow.hh"
 Student::Galaxy::Galaxy()
 {
 
@@ -14,6 +14,7 @@ Student::Galaxy::~Galaxy()
     // TODO: maybe delete all shared pointers to free memory???
 }
 
+
 void Student::Galaxy::addShip(std::shared_ptr<Common::Ship> ship)
 {
     auto iter_find_ship = std::find(_ships_in_galaxy.begin(), _ships_in_galaxy.end(), ship);
@@ -21,6 +22,9 @@ void Student::Galaxy::addShip(std::shared_ptr<Common::Ship> ship)
         throw Common::StateException("The ship is already in the galaxy");
     }
     _ships_in_galaxy.push_back(ship);
+    int x_coordinate = ship->getLocation()->getCoordinates().x;
+    int y_coordinate = ship->getLocation()->getCoordinates().y;
+    emit shipAddedAtCoordinates(x_coordinate, y_coordinate);
 }
 
 void Student::Galaxy::removeShip(std::shared_ptr<Common::Ship> ship)
@@ -38,6 +42,9 @@ void Student::Galaxy::addStarSystem(std::shared_ptr<Common::StarSystem> starSyst
         throw Common::StateException("System" + starSystem->getName() + " is already in the galaxy");
     }
     _star_systems_in_galaxy.push_back(starSystem);
+    int x_coordinate = starSystem->getCoordinates().x;
+    int y_coordinate = starSystem->getCoordinates().y;
+    emit starSystemAddedAtCoordinates(x_coordinate, y_coordinate);
 }
 
 std::shared_ptr<Common::IGalaxy::ShipVector> Student::Galaxy::getShips()
@@ -141,3 +148,6 @@ bool Student::Galaxy::isSytemInGalaxy(std::shared_ptr<Common::StarSystem> starSy
                                           ) != _star_systems_in_galaxy.end();
     return is_found_system;
 }
+
+
+
