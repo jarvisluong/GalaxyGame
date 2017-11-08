@@ -18,15 +18,15 @@ SOURCES += \
     eventhandler.cc \
     galaxy.cc \
     statistics.cc \
-    mainwindow.cpp \
-    constants.cpp
+    mainwindow.cc \
+    constants.cc
 
 HEADERS  += \
     galaxy.hh \
     eventhandler.hh \
     statistics.hh \
-    mainwindow.h \
-    constants.h
+    mainwindow.hh \
+    constants.hh
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course
