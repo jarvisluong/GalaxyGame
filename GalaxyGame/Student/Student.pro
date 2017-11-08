@@ -17,12 +17,16 @@ SOURCES += \
     main.cc\
     eventhandler.cc \
     galaxy.cc \
-    statistics.cc
+    statistics.cc \
+    mainwindow.cpp \
+    constants.cpp
 
 HEADERS  += \
     galaxy.hh \
     eventhandler.hh \
-    statistics.hh
+    statistics.hh \
+    mainwindow.h \
+    constants.h
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course
@@ -56,3 +60,6 @@ LIBS += -L$$OUT_PWD/../Course/$${DESTDIR}/ -lCourse
 
 QMAKE_EXTRA_TARGETS += copyfiles
 POST_TARGETDEPS += copyfiles
+
+FORMS += \
+    mainwindow.ui
