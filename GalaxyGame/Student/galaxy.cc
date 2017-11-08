@@ -35,7 +35,7 @@ void Student::Galaxy::removeShip(std::shared_ptr<Common::Ship> ship)
 void Student::Galaxy::addStarSystem(std::shared_ptr<Common::StarSystem> starSystem)
 {
     if (isSytemInGalaxy(starSystem)) {
-        throw Common::StateException("System is already in the galaxy");
+        throw Common::StateException("System" + starSystem->getName() + " is already in the galaxy");
     }
     _star_systems_in_galaxy.push_back(starSystem);
 }
@@ -130,26 +130,14 @@ bool Student::Galaxy::isSytemInGalaxy(std::shared_ptr<Common::StarSystem> starSy
     std::string name = starSystem->getName();
     auto id = starSystem->getId();
     Common::Point point = starSystem->getCoordinates();
-    bool is_found_name_system = std::find_if(
+    bool is_found_system = std::find_if(
                                 _star_systems_in_galaxy.begin(),
                                 _star_systems_in_galaxy.end(),
-                                [name](auto star_system) {
-                                    return star_system->getName() == name;
+                                [name, id, point](auto star_system) {
+                                    return star_system->getName() == name
+                                           || star_system->getId() == id
+                                           || star_system->getCoordinates() == point;
                                    }
                                           ) != _star_systems_in_galaxy.end();
-    bool is_found_id_system = std::find_if(
-                                _star_systems_in_galaxy.begin(),
-                                _star_systems_in_galaxy.end(),
-                                [id](auto star_system) {
-                                    return star_system->getId() == id;
-                                   }
-                                          ) != _star_systems_in_galaxy.end();
-    bool is_found_point_system = std::find_if(
-                                _star_systems_in_galaxy.begin(),
-                                _star_systems_in_galaxy.end(),
-                                [point](auto star_system) {
-                                    return star_system->getCoordinates() == point;
-                                   }
-                                          ) != _star_systems_in_galaxy.end();
-    return is_found_id_system || is_found_name_system || is_found_point_system;
+    return is_found_system;
 }
