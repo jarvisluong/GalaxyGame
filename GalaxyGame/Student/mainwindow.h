@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QImage>
 namespace Ui {
 class MainWindow;
 }
@@ -19,6 +20,8 @@ public:
 private:
     Ui::MainWindow *ui;
     QGraphicsScene* galaxy_scene;
+    QImage ship_image;
+    QImage star_image;
 };
 
 #endif // MAINWINDOW_H
