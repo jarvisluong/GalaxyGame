@@ -38,6 +38,7 @@ void MainWindow::addShipToGalaxyScene(int x, int y)
 
 void MainWindow::addStarSystemToGalaxyScene(int x, int y)
 {
+    qDebug() << "add star system at " << x << " " << y << endl;
     QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(star_image));
     item->setPos(x, y);
     galaxy_scene->addItem(item);
