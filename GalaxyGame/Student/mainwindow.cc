@@ -20,7 +20,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->galaxyView->setScene(galaxy_scene);
 
     ship_image.load("spaceship.png");
+    ship_image = ship_image.scaled(30, 30);
     star_image.load("star.png");
+    star_image = star_image.scaled(30, 30);
+
 }
 
 
@@ -31,6 +34,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::addShipToGalaxyScene(int x, int y)
 {
+    qDebug() << "add a ship at " << x << " " << y << endl;
     QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(ship_image));
     item->setPos(x, y);
     galaxy_scene->addItem(item);
@@ -38,7 +42,7 @@ void MainWindow::addShipToGalaxyScene(int x, int y)
 
 void MainWindow::addStarSystemToGalaxyScene(int x, int y)
 {
-    qDebug() << "add star system at " << x << " " << y << endl;
+    qDebug() << "add a star system at " << x << " " << y << endl;
     QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(star_image));
     item->setPos(x, y);
     galaxy_scene->addItem(item);
