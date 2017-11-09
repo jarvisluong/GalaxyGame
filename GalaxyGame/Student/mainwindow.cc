@@ -19,9 +19,9 @@ MainWindow::MainWindow(QWidget *parent) :
     galaxy_scene = new QGraphicsScene(QRect(0, 0, 1000, 1000));
     ui->galaxyView->setScene(galaxy_scene);
 
-    ship_image.load("spaceship.png");
+    ship_image.load("Assets/spaceship.png");
     ship_image = ship_image.scaled(30, 30);
-    star_image.load("star.png");
+    star_image.load("Assets/star.png");
     star_image = star_image.scaled(30, 30);
 
 }
@@ -30,6 +30,11 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::addShip(int x, int y)
+{
+    qDebug() << x << " " << y << endl;
 }
 
 void MainWindow::addShipToGalaxyScene(int x, int y)
