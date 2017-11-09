@@ -23,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ship_image = ship_image.scaled(30, 30);
     star_image.load("Assets/star.png");
     star_image = star_image.scaled(30, 30);
-    //testSpawnShip(5);
 
 }
 
@@ -37,10 +36,6 @@ void MainWindow::setGameRunner(std::shared_ptr<Common::IGameRunner> gamerunner_)
     gameRunner = gamerunner_;
 }
 
-void MainWindow::testSpawnShip(int count)
-{
-    gameRunner->spawnShips(count);
-}
 
 std::shared_ptr<Common::IGameRunner> MainWindow::getGameRunner() const
 {
@@ -67,4 +62,10 @@ void MainWindow::addStarSystemToGalaxyScene(int x, int y)
     QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(star_image));
     item->setPos(x, y);
     galaxy_scene->addItem(item);
+}
+
+void MainWindow::on_endTurnBtn_clicked()
+{
+    gameRunner->createActions();
+    gameRunner->doActions();
 }
