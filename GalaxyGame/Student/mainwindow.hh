@@ -18,13 +18,15 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     void setEventHandler(std::shared_ptr<Common::IEventHandler> handler_);
     void setGameRunner(std::shared_ptr<Common::IGameRunner> gamerunner_);
-    void testSpawnShip(int count);
     std::shared_ptr<Common::IGameRunner> getGameRunner() const;
     ~MainWindow();
 
 public slots:
     void addShipToGalaxyScene(int x, int y);
     void addStarSystemToGalaxyScene(int x, int y);
+private slots:
+    void on_endTurnBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene* galaxy_scene;
