@@ -23,18 +23,34 @@ MainWindow::MainWindow(QWidget *parent) :
     ship_image = ship_image.scaled(30, 30);
     star_image.load("Assets/star.png");
     star_image = star_image.scaled(30, 30);
+    //testSpawnShip(5);
 
+}
+
+void MainWindow::setEventHandler(std::shared_ptr<Common::IEventHandler> handler_)
+{
+    handler = handler_;
+}
+
+void MainWindow::setGameRunner(std::shared_ptr<Common::IGameRunner> gamerunner_)
+{
+    gameRunner = gamerunner_;
+}
+
+void MainWindow::testSpawnShip(int count)
+{
+    gameRunner->spawnShips(count);
+}
+
+std::shared_ptr<Common::IGameRunner> MainWindow::getGameRunner() const
+{
+    return gameRunner;
 }
 
 
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::addShip(int x, int y)
-{
-    qDebug() << x << " " << y << endl;
 }
 
 void MainWindow::addShipToGalaxyScene(int x, int y)

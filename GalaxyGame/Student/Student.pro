@@ -19,14 +19,16 @@ SOURCES += \
     galaxy.cc \
     statistics.cc \
     mainwindow.cc \
-    constants.cc
+    constants.cc \
+    dialog.cc
 
 HEADERS  += \
     galaxy.hh \
     eventhandler.hh \
     statistics.hh \
     mainwindow.hh \
-    constants.hh
+    constants.hh \
+    dialog.hh
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course
@@ -62,4 +64,5 @@ QMAKE_EXTRA_TARGETS += copyfiles
 POST_TARGETDEPS += copyfiles
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    dialog.ui

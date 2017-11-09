@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QImage>
+#include "ieventhandler.hh"
+#include "igamerunner.hh"
 namespace Ui {
 class MainWindow;
 }
@@ -14,6 +16,10 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void setEventHandler(std::shared_ptr<Common::IEventHandler> handler_);
+    void setGameRunner(std::shared_ptr<Common::IGameRunner> gamerunner_);
+    void testSpawnShip(int count);
+    std::shared_ptr<Common::IGameRunner> getGameRunner() const;
     ~MainWindow();
 
 public slots:
@@ -24,6 +30,8 @@ private:
     QGraphicsScene* galaxy_scene;
     QImage ship_image;
     QImage star_image;
+    std::shared_ptr<Common::IEventHandler> handler;
+    std::shared_ptr<Common::IGameRunner> gameRunner;
 };
 
 #endif // MAINWINDOW_H
