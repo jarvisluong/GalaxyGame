@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 #include <QString>
-
+#include <QRect>
 /*!
  * \brief The Constants struct, this includes all constants and presets
  * for the game
@@ -26,6 +26,11 @@ public:
      * \brief author is the authors of the game
      */
     static const QString author;
+
+    /*!
+     * \brief sceneRect defines the size of the scene
+     */
+    static const QRect sceneRect;
 };
 
 #endif // CONSTANTS_H
