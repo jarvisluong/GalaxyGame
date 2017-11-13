@@ -16,13 +16,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->authorLabel->setText(Constants::author);
     ui->versionLabel->setText(Constants::version);
 
-    galaxy_scene = new QGraphicsScene(QRect(0, 0, 1000, 1000));
+    galaxy_scene = new QGraphicsScene(Constants::sceneRect);
     ui->galaxyView->setScene(galaxy_scene);
 
     ship_image.load("Assets/spaceship.png");
-    ship_image = ship_image.scaled(30, 30);
+    ship_image = ship_image.scaled(20, 20);
     star_image.load("Assets/star.png");
-    star_image = star_image.scaled(30, 30);
+    star_image = star_image.scaled(20, 20);
 
 }
 
