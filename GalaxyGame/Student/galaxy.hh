@@ -6,6 +6,7 @@
 #include "ieventhandler.hh"
 #include "point.hh"
 #include "mainwindow.hh"
+#include "constants.hh"
 namespace Student {
 
 class Galaxy :  public QObject, public Common::IGalaxy, public std::enable_shared_from_this<Galaxy>
@@ -32,12 +33,14 @@ public:
 
     bool isSytemInGalaxy(std::shared_ptr<Common::StarSystem> starSystem);
 
+
 signals:
     void shipAddedAtCoordinates(int x, int y);
     void starSystemAddedAtCoordinates(int x, int y);
 private:
     ShipVector _ships_in_galaxy;
     Common::StarSystem::StarSystemVector _star_systems_in_galaxy;
+    void transformCoordinates(int& x, int& y);
 };
 
 }//Student
