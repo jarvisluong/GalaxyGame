@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->versionLabel->setText(Constants::version);
 
     galaxy_scene = new QGraphicsScene(Constants::sceneRect);
+    galaxy_scene->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
     ui->galaxyView->setScene(galaxy_scene);
 
     ship_image.load("Assets/spaceship.png");
