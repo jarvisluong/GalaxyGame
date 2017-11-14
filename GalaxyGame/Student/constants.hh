@@ -31,6 +31,8 @@ public:
      * \brief sceneRect defines the size of the scene
      */
     static const QRect sceneRect;
+
+    static const QString star_image_author;
 };
 
 #endif // CONSTANTS_H
