@@ -29,16 +29,6 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QTextEdit" name="numOfShipsTE">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>20</y>
-     <width>121</width>
-     <height>31</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QPushButton" name="okBtn">
    <property name="geometry">
     <rect>
@@ -56,7 +46,7 @@
    <property name="geometry">
     <rect>
      <x>260</x>
-     <y>53</y>
+     <y>30</y>
      <width>121</width>
      <height>31</height>
     </rect>
