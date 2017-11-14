@@ -14,6 +14,10 @@ class Dialog : public QDialog
 public:
     explicit Dialog(QWidget *parent = 0);
     ~Dialog();
+    /*!
+     * \brief getNumberOfShips returns the number of ships that user entered
+     * \return the number of ships that the user entered. It should always be from 10 to
+     */
     int getNumberOfShips();
 
 

@@ -15,7 +15,7 @@ Dialog::~Dialog()
 
 int Dialog::getNumberOfShips()
 {
-    return ui->numOfShipsTE->toPlainText().toInt();
+    return ui->numberOfShipsInput->text().toInt();
 }
 
 void Dialog::on_okBtn_clicked()
