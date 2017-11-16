@@ -7,6 +7,7 @@
 #include "point.hh"
 #include "mainwindow.hh"
 #include "constants.hh"
+#include <QObject>
 namespace Student {
 
 class Galaxy :  public QObject, public Common::IGalaxy, public std::enable_shared_from_this<Galaxy>
