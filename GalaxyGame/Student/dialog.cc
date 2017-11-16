@@ -15,11 +15,10 @@ Dialog::~Dialog()
 
 int Dialog::getNumberOfShips()
 {
-    return ui->numberOfShipsInput->text().toInt();
+    return ui->numberOfShipsInput->value();
 }
 
 void Dialog::on_okBtn_clicked()
 {
-    // TODO: check if the user inputs invalid number of ship
     accept();
 }
