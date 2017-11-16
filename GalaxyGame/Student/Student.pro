@@ -21,7 +21,7 @@ SOURCES += \
     mainwindow.cc \
     constants.cc \
     dialog.cc \
-    creditsdialog.cpp
+    creditsdialog.cpp \
     customitem.cc
 
 HEADERS  += \
@@ -31,7 +31,7 @@ HEADERS  += \
     mainwindow.hh \
     constants.hh \
     dialog.hh \
-    creditsdialog.h
+    creditsdialog.h \
     customitem.hh
 
 INCLUDEPATH += $$PWD/../Course
