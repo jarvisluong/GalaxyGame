@@ -1,12 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QGraphicsScene>
-#include <QImage>
 #include "ieventhandler.hh"
 #include "igamerunner.hh"
 #include "galaxy.hh"
+#include <QMainWindow>
+#include <QGraphicsScene>
+#include <QImage>
+
 
 namespace Ui {
 class MainWindow;
@@ -37,6 +38,7 @@ private:
     QImage star_image;
     std::shared_ptr<Common::IEventHandler> handler;
     std::shared_ptr<Common::IGameRunner> gameRunner;
+    Common::IGalaxy* galaxy;
 };
 
 #endif // MAINWINDOW_H
