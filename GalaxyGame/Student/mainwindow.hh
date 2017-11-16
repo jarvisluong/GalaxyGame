@@ -22,6 +22,7 @@ public:
     void setEventHandler(std::shared_ptr<Common::IEventHandler> handler_);
     void setGameRunner(std::shared_ptr<Common::IGameRunner> gamerunner_);
     std::shared_ptr<Common::IGameRunner> getGameRunner() const;
+    void setGalaxy(Common::IGalaxy* galaxy_);
     ~MainWindow();
 public slots:
     void addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> starSystem);

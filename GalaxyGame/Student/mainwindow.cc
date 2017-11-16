@@ -46,6 +46,11 @@ std::shared_ptr<Common::IGameRunner> MainWindow::getGameRunner() const
     return gameRunner;
 }
 
+void MainWindow::setGalaxy(Common::IGalaxy *galaxy_)
+{
+    galaxy = galaxy_;
+}
+
 
 MainWindow::~MainWindow()
 {
@@ -63,6 +68,7 @@ void MainWindow::addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> 
     transformCoordinates(x, y);
     item->setPos(x, y);
     item->setFlag(QGraphicsItem::ItemIsSelectable);
+    item->setGalaxyWindow(static_cast<Student::Galaxy*> (galaxy));
     galaxy_scene->addItem(item);
 }
 
