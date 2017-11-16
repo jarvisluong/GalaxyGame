@@ -62,13 +62,14 @@ MainWindow::~MainWindow()
 void MainWindow::addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> starSystem)
 {
     CustomItem* item = new CustomItem(QPixmap::fromImage(star_image));
-    item->setNameForStarSystem(starSystem->getName());
+    item->setNameForStarSystemItem(starSystem->getName());
     int x = starSystem->getCoordinates().x;
     int y = starSystem->getCoordinates().y;
     transformCoordinates(x, y);
     item->setPos(x, y);
     item->setFlag(QGraphicsItem::ItemIsSelectable);
-    item->setGalaxyWindow(static_cast<Student::Galaxy*> (galaxy));
+    item->setGalaxyForStarSystemItem(static_cast<Student::Galaxy*> (galaxy));
+    item->setMainWindowForStarSystemItem(this);
     galaxy_scene->addItem(item);
 }
 
