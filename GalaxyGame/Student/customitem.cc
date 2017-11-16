@@ -9,13 +9,8 @@ CustomItem::CustomItem(QPixmap pixmap_): QGraphicsPixmapItem(pixmap_)
 
 void CustomItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-     Common::IGalaxy::ShipVector vt = galaxy->getShipsInStarSystem(name);
-     for(auto i: vt) {
-         qDebug() << QString::fromStdString(i->getName()) << endl;
-     }
-     // update the ListView with returned vt
-     // window->updateListView(vt);
-
+     Common::IGalaxy::ShipVector shipVector = galaxy->getShipsInStarSystem(name);
+     window->updateListWidget(shipVector);
 }
 
 void CustomItem::setGalaxyForStarSystemItem(Student::Galaxy *galaxy_)
