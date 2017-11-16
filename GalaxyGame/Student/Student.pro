@@ -20,7 +20,8 @@ SOURCES += \
     statistics.cc \
     mainwindow.cc \
     constants.cc \
-    dialog.cc
+    dialog.cc \
+    creditsdialog.cpp
 
 HEADERS  += \
     galaxy.hh \
@@ -28,7 +29,8 @@ HEADERS  += \
     statistics.hh \
     mainwindow.hh \
     constants.hh \
-    dialog.hh
+    dialog.hh \
+    creditsdialog.h
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course
@@ -65,4 +67,5 @@ POST_TARGETDEPS += copyfiles
 
 FORMS += \
     mainwindow.ui \
-    dialog.ui
+    dialog.ui \
+    creditsdialog.ui

@@ -26,6 +26,7 @@ public slots:
     void addStarSystemToGalaxyScene(int x, int y);
 private slots:
     void on_endTurnBtn_clicked();
+    void on_viewCreditsBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

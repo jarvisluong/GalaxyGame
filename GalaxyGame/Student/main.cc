@@ -21,7 +21,6 @@ int main(int argc, char *argv[])
     MainWindow w;
     MainWindow::connect(myGalaxy, SIGNAL(shipAddedAtCoordinates(int, int)), &w, SLOT(addShipToGalaxyScene(int,int)));
     MainWindow::connect(myGalaxy, SIGNAL(starSystemAddedAtCoordinates(int,int)), &w, SLOT(addStarSystemToGalaxyScene(int,int)));
-    MainWindow::connect(&w, SIGNAL(), &w, SLOT(on_viewCreditsBtn_clicked()));
     std::shared_ptr<Common::IGameRunner> gameRunner = Common::getGameRunner(galaxy, handler);
     Common::utilityInit(time(NULL));
 

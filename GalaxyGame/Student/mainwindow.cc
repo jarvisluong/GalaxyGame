@@ -1,6 +1,7 @@
 #include "mainwindow.hh"
 #include "ui_mainwindow.h"
 #include "constants.hh"
+#include "creditsdialog.h"
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
@@ -25,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     star_image.load("Assets/star.png");
     star_image = star_image.scaled(20, 20);
 
+    connect(ui->viewCreditsBtn, SIGNAL(clicked(bool)), this, SLOT(on_viewCreditsBtn_clicked()));
 }
 
 void MainWindow::setEventHandler(std::shared_ptr<Common::IEventHandler> handler_)
@@ -69,4 +71,10 @@ void MainWindow::on_endTurnBtn_clicked()
 {
     gameRunner->createActions();
     gameRunner->doActions();
+}
+
+void MainWindow::on_viewCreditsBtn_clicked()
+{
+    CreditsDialog c;
+    c.exec();
 }
