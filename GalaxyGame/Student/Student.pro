@@ -22,7 +22,8 @@ SOURCES += \
     constants.cc \
     dialog.cc \
     creditsdialog.cpp \
-    customitem.cc
+    customitem.cc \
+    customlistwidgetitem.cc
 
 HEADERS  += \
     galaxy.hh \
@@ -32,7 +33,8 @@ HEADERS  += \
     constants.hh \
     dialog.hh \
     creditsdialog.h \
-    customitem.hh
+    customitem.hh \
+    customlistwidgetitem.hh
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course
