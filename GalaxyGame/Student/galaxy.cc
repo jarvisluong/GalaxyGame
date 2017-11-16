@@ -26,7 +26,6 @@ void Student::Galaxy::addShip(std::shared_ptr<Common::Ship> ship)
     int x_coordinate = ship->getLocation()->getCoordinates().x;
     int y_coordinate = ship->getLocation()->getCoordinates().y;
     transformCoordinates(x_coordinate, y_coordinate);
-    emit shipAddedAtCoordinates(x_coordinate, y_coordinate);
 }
 
 void Student::Galaxy::removeShip(std::shared_ptr<Common::Ship> ship)
