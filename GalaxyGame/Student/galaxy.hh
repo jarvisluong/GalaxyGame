@@ -34,14 +34,12 @@ public:
 
     bool isSytemInGalaxy(std::shared_ptr<Common::StarSystem> starSystem);
 
-
 signals:
-    void shipAddedAtCoordinates(int x, int y);
-    void starSystemAddedAtCoordinates(int x, int y);
+    void starSystemAddedAtCoordinates(std::shared_ptr<Common::StarSystem> starSystem);
+
 private:
     ShipVector _ships_in_galaxy;
     Common::StarSystem::StarSystemVector _star_systems_in_galaxy;
-    void transformCoordinates(int& x, int& y);
 };
 
 }//Student

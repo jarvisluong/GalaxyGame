@@ -23,9 +23,6 @@ void Student::Galaxy::addShip(std::shared_ptr<Common::Ship> ship)
         throw Common::StateException("The ship is already in the galaxy");
     }
     _ships_in_galaxy.push_back(ship);
-    int x_coordinate = ship->getLocation()->getCoordinates().x;
-    int y_coordinate = ship->getLocation()->getCoordinates().y;
-    transformCoordinates(x_coordinate, y_coordinate);
 }
 
 void Student::Galaxy::removeShip(std::shared_ptr<Common::Ship> ship)
@@ -43,10 +40,7 @@ void Student::Galaxy::addStarSystem(std::shared_ptr<Common::StarSystem> starSyst
         throw Common::StateException("System" + starSystem->getName() + " is already in the galaxy");
     }
     _star_systems_in_galaxy.push_back(starSystem);
-    int x_coordinate = starSystem->getCoordinates().x;
-    int y_coordinate = starSystem->getCoordinates().y;
-    transformCoordinates(x_coordinate, y_coordinate);
-    emit starSystemAddedAtCoordinates(x_coordinate, y_coordinate);
+    emit starSystemAddedAtCoordinates(starSystem);
 }
 
 std::shared_ptr<Common::IGalaxy::ShipVector> Student::Galaxy::getShips()
@@ -150,14 +144,4 @@ bool Student::Galaxy::isSytemInGalaxy(std::shared_ptr<Common::StarSystem> starSy
                                           ) != _star_systems_in_galaxy.end();
     return is_found_system;
 }
-
-void Student::Galaxy::transformCoordinates(int& x, int& y)
-{
-    x *= 21; y *= 21;
-    // reference to Constants must be stated in Galaxy.pro => ask TA
-    // x += Constants::sceneRect.width() / 2; y += Constants::sceneRect.height() / 2;
-    x += 500; y += 500;
-}
-
-
 
