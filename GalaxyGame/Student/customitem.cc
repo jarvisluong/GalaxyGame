@@ -13,14 +13,22 @@ void CustomItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
      for(auto i: vt) {
          qDebug() << QString::fromStdString(i->getName()) << endl;
      }
+     // update the ListView with returned vt
+     // window->updateListView(vt);
+
 }
 
-void CustomItem::setGalaxyWindow(Student::Galaxy *galaxy_)
+void CustomItem::setGalaxyForStarSystemItem(Student::Galaxy *galaxy_)
 {
     galaxy = galaxy_;
 }
 
-void CustomItem::setNameForStarSystem(std::string name_)
+void CustomItem::setNameForStarSystemItem(std::string name_)
 {
     name = name_;
+}
+
+void CustomItem::setMainWindowForStarSystemItem(MainWindow *w_)
+{
+    window = w_;
 }
