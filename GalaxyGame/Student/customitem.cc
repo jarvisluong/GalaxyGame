@@ -9,10 +9,10 @@ CustomItem::CustomItem(QPixmap pixmap_): QGraphicsPixmapItem(pixmap_)
 
 void CustomItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-
-//     qDebug() << QString::fromStdString(name) << endl;
      Common::IGalaxy::ShipVector vt = galaxy->getShipsInStarSystem(name);
-     qDebug() << vt.size() << endl;
+     for(auto i: vt) {
+         qDebug() << QString::fromStdString(i->getName()) << endl;
+     }
 }
 
 void CustomItem::setGalaxyWindow(Student::Galaxy *galaxy_)
