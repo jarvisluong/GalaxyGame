@@ -1,2 +1,8 @@
 /build-GalaxyGame-Desktop_Qt_5_9_1_clang_64bit-Debug/*
 *.pro.user
+gameexception.o
+*.o
+GalaxyGame/Student/customlistitem.cc
+GalaxyGame/Student/customlistitem.hh
+GalaxyGame/Student/mainwindow.cc.autosave
+build-GalaxyGame-Desktop_Qt_5_9_2_clang_64bit-Debug/*
