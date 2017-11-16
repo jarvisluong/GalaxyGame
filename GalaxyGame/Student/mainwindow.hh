@@ -4,7 +4,6 @@
 #include "ieventhandler.hh"
 #include "igamerunner.hh"
 #include "galaxy.hh"
-#include "galaxy.hh"
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QImage>
@@ -23,12 +22,14 @@ public:
     void setGameRunner(std::shared_ptr<Common::IGameRunner> gamerunner_);
     std::shared_ptr<Common::IGameRunner> getGameRunner() const;
     void setGalaxy(Common::IGalaxy* galaxy_);
+    void updateListWidget(Common::IGalaxy::ShipVector ships);
     ~MainWindow();
 public slots:
     void addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> starSystem);
 private slots:
     void on_endTurnBtn_clicked();
     void on_viewCreditsBtn_clicked();
+    void on_saveSelectedShipsBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

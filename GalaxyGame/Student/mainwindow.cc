@@ -2,12 +2,15 @@
 #include "ui_mainwindow.h"
 #include "constants.hh"
 #include "creditsdialog.h"
+#include "customitem.hh"
+#include "customlistwidgetitem.hh"
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
 #include <QImage>
 #include <QDebug>
-#include "customitem.hh"
+#include <QListWidgetItem>
+#include <QList>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -17,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->gameNameLabel->setText(Constants::gameName);
     ui->authorLabel->setText(Constants::author);
     ui->versionLabel->setText(Constants::version);
+    ui->shipListWidget->setSelectionMode(QAbstractItemView::MultiSelection);
 
     galaxy_scene = new QGraphicsScene(Constants::sceneRect);
     galaxy_scene->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
@@ -49,6 +53,19 @@ std::shared_ptr<Common::IGameRunner> MainWindow::getGameRunner() const
 void MainWindow::setGalaxy(Common::IGalaxy *galaxy_)
 {
     galaxy = galaxy_;
+}
+
+void MainWindow::updateListWidget(Common::IGalaxy::ShipVector ships)
+{
+    ui->shipListWidget->clear();
+
+    for(int i = 0; i < ships.size(); i++) {
+        QString ship_name = QString::fromStdString(ships[i]->getName());
+        QString health = QString::number(ships[i]->getEngine()->getHealth());
+        CustomListWidgetItem* item = new CustomListWidgetItem(ship_name + "; Health: " + health, ui->shipListWidget);
+        item->setShipForWidgetItem(ships[i]);
+        ui->shipListWidget->addItem(item);
+    }
 }
 
 
@@ -91,4 +108,15 @@ void MainWindow::transformCoordinates(int& x, int& y)
     // reference to Constants must be stated in Galaxy.pro => ask TA
     // x += Constants::sceneRect.width() / 2; y += Constants::sceneRect.height() / 2;
     x += 500; y += 500;
+}
+
+void MainWindow::on_saveSelectedShipsBtn_clicked()
+{
+    QList<QListWidgetItem*> selectedItems = ui->shipListWidget->selectedItems();
+    qDebug() << "saved ships are below (for now we call decreaseHealth(2) for each ship because health == maxHealth): " << endl;
+    for(int i = 0; i < selectedItems.size(); i++) {
+        CustomListWidgetItem* customItem = static_cast<CustomListWidgetItem*> (selectedItems[i]);
+        customItem->getShipFromWidgetItem()->getEngine()->decreaseHealth(2);
+        qDebug() <<QString::fromStdString(customItem->getShipFromWidgetItem()->getName()) << " " << QString::number(customItem->getShipFromWidgetItem()->getEngine()->getHealth()) << endl;
+    }
 }
