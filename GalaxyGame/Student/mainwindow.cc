@@ -52,23 +52,15 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::addShipToGalaxyScene(int x, int y)
-{
-    qDebug() << "add a ship at " << x << " " << y << endl;
-//    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(ship_image));
-//    item->setPos(x, y);
-//    QGraphicsItem* item = new QGraphicsItem(QPixmap::fromImage(ship_image));
-//    item->setPos(x, y);
-//    galaxy_scene->addItem(item);
-}
 
-void MainWindow::addStarSystemToGalaxyScene(int x, int y)
+
+void MainWindow::addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> starSystem)
 {
-    qDebug() << "add a star system at " << x << " " << y << endl;
-//    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(star_image));
-//    item->setPos(x, y);
-//    item->setFlag(QGraphicsItem::ItemIsSelectable);
     CustomItem* item = new CustomItem(QPixmap::fromImage(star_image));
+    item->setNameForStarSystem(starSystem->getName());
+    int x = starSystem->getCoordinates().x;
+    int y = starSystem->getCoordinates().y;
+    transformCoordinates(x, y);
     item->setPos(x, y);
     item->setFlag(QGraphicsItem::ItemIsSelectable);
     galaxy_scene->addItem(item);
@@ -84,4 +76,12 @@ void MainWindow::on_viewCreditsBtn_clicked()
 {
     CreditsDialog c;
     c.exec();
+}
+
+void MainWindow::transformCoordinates(int& x, int& y)
+{
+    x *= 21; y *= 21;
+    // reference to Constants must be stated in Galaxy.pro => ask TA
+    // x += Constants::sceneRect.width() / 2; y += Constants::sceneRect.height() / 2;
+    x += 500; y += 500;
 }
