@@ -20,7 +20,8 @@ SOURCES += \
     statistics.cc \
     mainwindow.cc \
     constants.cc \
-    dialog.cc
+    dialog.cc \
+    customitem.cc
 
 HEADERS  += \
     galaxy.hh \
@@ -28,7 +29,8 @@ HEADERS  += \
     statistics.hh \
     mainwindow.hh \
     constants.hh \
-    dialog.hh
+    dialog.hh \
+    customitem.hh
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course

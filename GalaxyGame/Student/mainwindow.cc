@@ -6,6 +6,7 @@
 #include <QPixmap>
 #include <QImage>
 #include <QDebug>
+#include "customitem.hh"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -52,16 +53,22 @@ MainWindow::~MainWindow()
 void MainWindow::addShipToGalaxyScene(int x, int y)
 {
     qDebug() << "add a ship at " << x << " " << y << endl;
-    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(ship_image));
-    item->setPos(x, y);
-    galaxy_scene->addItem(item);
+//    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(ship_image));
+//    item->setPos(x, y);
+//    QGraphicsItem* item = new QGraphicsItem(QPixmap::fromImage(ship_image));
+//    item->setPos(x, y);
+//    galaxy_scene->addItem(item);
 }
 
 void MainWindow::addStarSystemToGalaxyScene(int x, int y)
 {
     qDebug() << "add a star system at " << x << " " << y << endl;
-    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(star_image));
+//    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(star_image));
+//    item->setPos(x, y);
+//    item->setFlag(QGraphicsItem::ItemIsSelectable);
+    CustomItem* item = new CustomItem(QPixmap::fromImage(star_image));
     item->setPos(x, y);
+    item->setFlag(QGraphicsItem::ItemIsSelectable);
     galaxy_scene->addItem(item);
 }
 

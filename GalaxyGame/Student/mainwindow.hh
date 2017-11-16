@@ -6,6 +6,8 @@
 #include <QImage>
 #include "ieventhandler.hh"
 #include "igamerunner.hh"
+#include "galaxy.hh"
+
 namespace Ui {
 class MainWindow;
 }
