@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->gameNameLabel->setText(Constants::gameName);
     ui->authorLabel->setText(Constants::author);
     ui->versionLabel->setText(Constants::version);
-    ui->shipListWidget->setSelectionMode(QAbstractItemView::MultiSelection);
+    ui->shipListWidget->setSelectionMode(QAbstractItemView::NoSelection);
 
     galaxy_scene = new QGraphicsScene(Constants::sceneRect);
     galaxy_scene->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
@@ -63,6 +63,8 @@ void MainWindow::updateListWidget(Common::IGalaxy::ShipVector ships)
         QString ship_name = QString::fromStdString(ships[i]->getName());
         QString health = QString::number(ships[i]->getEngine()->getHealth());
         CustomListWidgetItem* item = new CustomListWidgetItem(ship_name + "; Health: " + health, ui->shipListWidget);
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        item->setCheckState(Qt::Unchecked);
         item->setShipForWidgetItem(ships[i]);
         ui->shipListWidget->addItem(item);
     }
@@ -112,11 +114,13 @@ void MainWindow::transformCoordinates(int& x, int& y)
 
 void MainWindow::on_saveSelectedShipsBtn_clicked()
 {
-    QList<QListWidgetItem*> selectedItems = ui->shipListWidget->selectedItems();
     qDebug() << "saved ships are below (for now we call decreaseHealth(2) for each ship because health == maxHealth): " << endl;
-    for(int i = 0; i < selectedItems.size(); i++) {
-        CustomListWidgetItem* customItem = static_cast<CustomListWidgetItem*> (selectedItems[i]);
-        customItem->getShipFromWidgetItem()->getEngine()->decreaseHealth(2);
-        qDebug() <<QString::fromStdString(customItem->getShipFromWidgetItem()->getName()) << " " << QString::number(customItem->getShipFromWidgetItem()->getEngine()->getHealth()) << endl;
+    for(int i = 0; i < ui->shipListWidget->count(); i++) {
+        QListWidgetItem* item = ui->shipListWidget->item(i);
+        CustomListWidgetItem* customItem = static_cast<CustomListWidgetItem*> (item);
+        if(customItem->checkState()) {
+            customItem->getShipFromWidgetItem()->getEngine()->decreaseHealth(2);
+            qDebug() << QString::fromStdString(customItem->getShipFromWidgetItem()->getName()) << " " << QString::number(customItem->getShipFromWidgetItem()->getEngine()->getHealth()) << endl;
+        }
     }
 }
