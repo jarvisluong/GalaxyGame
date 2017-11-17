@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>790</width>
-    <height>489</height>
+    <width>767</width>
+    <height>470</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,12 +27,6 @@
      <property name="spacing">
       <number>0</number>
      </property>
-     <item row="3" column="3">
-      <widget class="QLCDNumber" name="healthLCDNumber"/>
-     </item>
-     <item row="1" column="3">
-      <widget class="QLCDNumber" name="pointLCDNumber"/>
-     </item>
      <item row="6" column="1">
       <widget class="QPushButton" name="endTurnBtn">
        <property name="text">
@@ -70,9 +64,6 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="3">
-      <widget class="QLCDNumber" name="creditLCDNumber"/>
-     </item>
      <item row="9" column="1">
       <widget class="QPushButton" name="saveSelectedShipsBtn">
        <property name="text">
@@ -97,13 +88,6 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="2">
-      <widget class="QLabel" name="creditLabel">
-       <property name="text">
-        <string>Credits</string>
-       </property>
-      </widget>
-     </item>
      <item row="7" column="1">
       <widget class="QPushButton" name="highScoreBtn">
        <property name="text">
@@ -112,20 +96,36 @@
       </widget>
      </item>
      <item row="1" column="2">
+      <widget class="QLabel" name="creditLabel">
+       <property name="text">
+        <string>Credits</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QLCDNumber" name="pointLCDNumber"/>
+     </item>
+     <item row="0" column="2">
       <widget class="QLabel" name="pointLabel">
        <property name="text">
         <string>Points</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="2">
+     <item row="2" column="2">
       <widget class="QLabel" name="healthLabel">
        <property name="text">
         <string>Health</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1">
+     <item row="1" column="3">
+      <widget class="QLCDNumber" name="creditLCDNumber"/>
+     </item>
+     <item row="2" column="3">
+      <widget class="QLCDNumber" name="healthLCDNumber"/>
+     </item>
+     <item row="0" column="1" rowspan="5">
       <widget class="QListWidget" name="shipListWidget"/>
      </item>
     </layout>
@@ -136,7 +136,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>790</width>
+     <width>767</width>
      <height>22</height>
     </rect>
    </property>
