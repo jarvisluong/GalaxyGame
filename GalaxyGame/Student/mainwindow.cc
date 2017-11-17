@@ -81,7 +81,7 @@ MainWindow::~MainWindow()
 void MainWindow::addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> starSystem)
 {
     CustomItem* item = new CustomItem(QPixmap::fromImage(star_image));
-    item->setNameForStarSystemItem(starSystem->getName());
+    item->setStarSystemForItem(starSystem);
     int x = starSystem->getCoordinates().x;
     int y = starSystem->getCoordinates().y;
     transformCoordinates(x, y);
@@ -122,5 +122,6 @@ void MainWindow::on_saveSelectedShipsBtn_clicked()
             customItem->getShipFromWidgetItem()->getEngine()->decreaseHealth(2);
             qDebug() << QString::fromStdString(customItem->getShipFromWidgetItem()->getName()) << " " << QString::number(customItem->getShipFromWidgetItem()->getEngine()->getHealth()) << endl;
         }
+
     }
 }
