@@ -7,6 +7,7 @@
 #include "point.hh"
 #include "mainwindow.hh"
 #include "constants.hh"
+#include "playership.h"
 #include <QObject>
 namespace Student {
 
@@ -39,6 +40,7 @@ signals:
 
 private:
     ShipVector _ships_in_galaxy;
+    Student::PlayerShip *_player_ship;
     Common::StarSystem::StarSystemVector _star_systems_in_galaxy;
 };
 
