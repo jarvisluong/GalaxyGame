@@ -34,7 +34,8 @@ HEADERS  += \
     dialog.hh \
     creditsdialog.h \
     customitem.hh \
-    customlistwidgetitem.hh
+    customlistwidgetitem.hh \
+    utilities.hh
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course
