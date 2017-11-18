@@ -27,7 +27,6 @@ int main(int argc, char *argv[])
     std::shared_ptr<Common::IGameRunner> gameRunner = Common::getGameRunner(galaxy, handler);
     Common::utilityInit(time(NULL));
 
-
     w.setEventHandler(handler);
     w.setGameRunner(gameRunner);
     Dialog configWindow;

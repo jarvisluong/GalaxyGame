@@ -31,14 +31,29 @@ public:
     std::vector<std::string> getSystemNames();
     std::shared_ptr<Common::StarSystem> getStarSystemByName(std::string name);
     std::shared_ptr<Common::StarSystem> getStarSystemById(unsigned id);
-
+    /*!
+     * \brief Checks if a star system is in the galaxy.
+     * \param starSystem The star system that needs to be checked.
+     * \return true if star system is in the galaxy; false otherwise.
+     */
     bool isSytemInGalaxy(std::shared_ptr<Common::StarSystem> starSystem);
 
 signals:
+    /*!
+     * \brief signal that notifies a starSystem has been added to the galaxy.
+     * \param starSystem The starSystem that was added.
+     */
     void starSystemAddedAtCoordinates(std::shared_ptr<Common::StarSystem> starSystem);
 
 private:
+    /*!
+     * \brief _ships_in_galaxy Contains all the ships in the galaxy
+     */
+    // TODO: decide whether this contains playable ship or not
     ShipVector _ships_in_galaxy;
+    /*!
+     * \brief _star_systems_in_galaxy Contains all the star systems in the galaxy
+     */
     Common::StarSystem::StarSystemVector _star_systems_in_galaxy;
 };
 

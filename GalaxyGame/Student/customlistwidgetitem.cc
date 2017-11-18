@@ -1,5 +1,6 @@
 #include "customlistwidgetitem.hh"
-
+#include "utilities.hh"
+using namespace Utilities;
 CustomListWidgetItem::CustomListWidgetItem(const QString &text, QListWidget *view, int type): QListWidgetItem(text, view)
 {
 
@@ -7,6 +8,7 @@ CustomListWidgetItem::CustomListWidgetItem(const QString &text, QListWidget *vie
 
 void CustomListWidgetItem::setShipForWidgetItem(std::shared_ptr<Common::Ship> ship_)
 {
+    assert_not_null(ship_.get());
     ship = ship_;
 }
 

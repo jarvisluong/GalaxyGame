@@ -4,6 +4,7 @@
 #include "creditsdialog.h"
 #include "customitem.hh"
 #include "customlistwidgetitem.hh"
+#include "utilities.hh"
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
@@ -11,6 +12,9 @@
 #include <QDebug>
 #include <QListWidgetItem>
 #include <QList>
+using namespace Utilities;
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -35,12 +39,14 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::setEventHandler(std::shared_ptr<Common::IEventHandler> handler_)
-{
+{    
+    assert_not_null(handler_.get());
     handler = handler_;
 }
 
 void MainWindow::setGameRunner(std::shared_ptr<Common::IGameRunner> gamerunner_)
 {
+    assert_not_null(gamerunner_.get());
     gameRunner = gamerunner_;
 }
 
@@ -52,6 +58,7 @@ std::shared_ptr<Common::IGameRunner> MainWindow::getGameRunner() const
 
 void MainWindow::setGalaxy(Common::IGalaxy *galaxy_)
 {
+    assert_not_null(galaxy_);
     galaxy = galaxy_;
 }
 
@@ -80,6 +87,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> starSystem)
 {
+    assert_not_null(starSystem.get());
     CustomItem* item = new CustomItem(QPixmap::fromImage(star_image));
     item->setStarSystemForItem(starSystem);
     int x = starSystem->getCoordinates().x;
