@@ -24,6 +24,7 @@ public:
     std::shared_ptr<Common::IGameRunner> getGameRunner() const;
     void setGalaxy(Common::IGalaxy* galaxy_);
     void updateListWidget(Common::IGalaxy::ShipVector ships);
+    void updatePlayerShipLocation(Common::Point new_location);
     void initPlayerShip();
     ~MainWindow();
 public slots:

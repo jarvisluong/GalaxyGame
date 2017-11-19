@@ -70,6 +70,12 @@ void MainWindow::updateListWidget(Common::IGalaxy::ShipVector ships)
     }
 }
 
+void MainWindow::updatePlayerShipLocation(Common::Point new_location)
+{
+    _player_ship->goToLocation(new_location);
+    qDebug() << _player_ship->getLocation().x << ' ' << _player_ship->getLocation().y << endl;
+}
+
 void MainWindow::initPlayerShip()
 {
     ship_image.load("Assets/spaceship.png");
@@ -93,6 +99,7 @@ void MainWindow::addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> 
 {
     CustomItem* item = new CustomItem(QPixmap::fromImage(star_image));
     item->setNameForStarSystemItem(starSystem->getName());
+    item->setLocationForStarSystemItem(starSystem->getCoordinates());
     int x = starSystem->getCoordinates().x;
     int y = starSystem->getCoordinates().y;
     transformCoordinates(x, y);

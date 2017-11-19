@@ -16,6 +16,7 @@ PlayerShip::PlayerShip(Common::Point initialLocation, unsigned int initialHealth
 void PlayerShip::goToLocation(Common::Point nextLocation)
 {
     _location = nextLocation;
+    ui_item->setPos(nextLocation.x * 21 + 500, nextLocation.y * 21 + 500);
 }
 
 void PlayerShip::decreaseHealth(unsigned int amount)
