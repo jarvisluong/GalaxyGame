@@ -8,7 +8,7 @@
 #include <QDebug>
 Student::Galaxy::Galaxy()
 {
-    _player_ship = new Student::PlayerShip(Common::Point(500, 500));
+
 }
 
 Student::Galaxy::~Galaxy()

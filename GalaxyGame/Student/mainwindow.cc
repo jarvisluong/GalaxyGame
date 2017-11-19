@@ -26,10 +26,10 @@ MainWindow::MainWindow(QWidget *parent) :
     galaxy_scene->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
     ui->galaxyView->setScene(galaxy_scene);
 
-    ship_image.load("Assets/spaceship.png");
-    ship_image = ship_image.scaled(20, 20);
     star_image.load("Assets/star.png");
     star_image = star_image.scaled(20, 20);
+
+    initPlayerShip();
 
     connect(ui->viewCreditsBtn, SIGNAL(clicked(bool)), this, SLOT(on_viewCreditsBtn_clicked()));
 }
@@ -68,6 +68,17 @@ void MainWindow::updateListWidget(Common::IGalaxy::ShipVector ships)
         item->setShipForWidgetItem(ships[i]);
         ui->shipListWidget->addItem(item);
     }
+}
+
+void MainWindow::initPlayerShip()
+{
+    ship_image.load("Assets/spaceship.png");
+    ship_image = ship_image.scaled(20, 20);
+    _player_ship = new Student::PlayerShip(Common::Point(500, 500));
+    QGraphicsPixmapItem *ui_item = new QGraphicsPixmapItem(QPixmap::fromImage(ship_image));
+    ui_item->setPos(500, 500);
+    _player_ship->set_ui_item(ui_item);
+    galaxy_scene->addItem(_player_ship->get_ui_item());
 }
 
 

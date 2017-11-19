@@ -40,7 +40,6 @@ signals:
 
 private:
     ShipVector _ships_in_galaxy;
-    Student::PlayerShip *_player_ship;
     Common::StarSystem::StarSystemVector _star_systems_in_galaxy;
 };
 

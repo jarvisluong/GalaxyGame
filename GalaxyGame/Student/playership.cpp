@@ -10,9 +10,6 @@ PlayerShip::PlayerShip(Common::Point initialLocation, unsigned int initialHealth
       _health(initialHealth)
 {
     QImage ship_image;
-    ship_image.load("Assets/ship.png");
-    ship_image.scaled(20, 20);
-    ui_item = new QGraphicsPixmapItem(QPixmap::fromImage(ship_image));
     invariant();
 }
 
@@ -51,6 +48,11 @@ unsigned int PlayerShip::getHealth()
 Common::Point PlayerShip::getLocation()
 {
     return _location;
+}
+
+void PlayerShip::set_ui_item(QGraphicsPixmapItem *item)
+{
+    ui_item = item;
 }
 
 QGraphicsPixmapItem *PlayerShip::get_ui_item()

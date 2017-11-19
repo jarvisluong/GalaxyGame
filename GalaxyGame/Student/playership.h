@@ -14,7 +14,8 @@ public:
     void decreaseHealth(unsigned int amount);
     void increaseHealth(unsigned int amount);
     unsigned int getHealth();
-    Common::Point getLocation();
+    Common::Point getLocation();    
+    void set_ui_item(QGraphicsPixmapItem *item);
     QGraphicsPixmapItem *get_ui_item();
 private:
     void invariant();
