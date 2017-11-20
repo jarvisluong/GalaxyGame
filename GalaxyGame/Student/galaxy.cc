@@ -1,9 +1,11 @@
 #include "galaxy.hh"
 #include "objectnotfoundexception.hh"
 #include "stateexception.hh"
+#include "mainwindow.hh"
+#include "playership.h"
 #include <stdlib.h>
 #include <algorithm>
-
+#include <QDebug>
 Student::Galaxy::Galaxy()
 {
 
@@ -13,6 +15,7 @@ Student::Galaxy::~Galaxy()
 {
     // TODO: maybe delete all shared pointers to free memory???
 }
+
 
 void Student::Galaxy::addShip(std::shared_ptr<Common::Ship> ship)
 {
@@ -38,6 +41,7 @@ void Student::Galaxy::addStarSystem(std::shared_ptr<Common::StarSystem> starSyst
         throw Common::StateException("System" + starSystem->getName() + " is already in the galaxy");
     }
     _star_systems_in_galaxy.push_back(starSystem);
+    emit starSystemAddedAtCoordinates(starSystem);
 }
 
 std::shared_ptr<Common::IGalaxy::ShipVector> Student::Galaxy::getShips()
@@ -141,3 +145,4 @@ bool Student::Galaxy::isSytemInGalaxy(std::shared_ptr<Common::StarSystem> starSy
                                           ) != _star_systems_in_galaxy.end();
     return is_found_system;
 }
+

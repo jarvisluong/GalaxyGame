@@ -18,15 +18,26 @@ SOURCES += \
     eventhandler.cc \
     galaxy.cc \
     statistics.cc \
-    mainwindow.cpp \
-    constants.cpp
+    mainwindow.cc \
+    constants.cc \
+    dialog.cc \
+    creditsdialog.cpp \
+    customitem.cc \
+    customlistwidgetitem.cc \
+    playership.cpp
 
 HEADERS  += \
     galaxy.hh \
     eventhandler.hh \
     statistics.hh \
-    mainwindow.h \
-    constants.h
+    mainwindow.hh \
+    constants.hh \
+    dialog.hh \
+    creditsdialog.h \
+    customitem.hh \
+    customlistwidgetitem.hh \
+    utilities.hh \
+    playership.h
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course
@@ -62,4 +73,6 @@ QMAKE_EXTRA_TARGETS += copyfiles
 POST_TARGETDEPS += copyfiles
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    dialog.ui \
+    creditsdialog.ui

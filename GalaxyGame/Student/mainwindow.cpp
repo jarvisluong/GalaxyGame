@@ -1,7 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "constants.h"
-
+#include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
+#include <QPixmap>
+#include <QImage>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -11,9 +14,29 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->gameNameLabel->setText(Constants::gameName);
     ui->authorLabel->setText(Constants::author);
     ui->versionLabel->setText(Constants::version);
+    galaxy_scene = new QGraphicsScene(QRect(0, 0, 1000, 1000));
+    ui->galaxyView->setScene(galaxy_scene);
+
+    ship_image.load("spaceship.png");
+    star_image.load("star.png");
 }
+
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::addShipToGalaxyScene(int x, int y)
+{
+//    QGraphicsPixmapItem* item = QGraphicsPixmapItem(QPixmap::fromImage(ship_image));
+//    item->setPos(x, y);
+//    galaxy_scene->addItem(item);
+}
+
+void MainWindow::addStarSystemToGalaxyScene(int x, int y)
+{
+//    QGraphicsPixmapItem* item = QGraphicsPixmapItem(QPixmap::fromImage(star_image));
+//    item->setPos(x, y);
+//    galaxy_scene->addItem(item);
 }
