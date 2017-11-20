@@ -43,6 +43,7 @@ void Student::Statistics::addPoints(unsigned amount)
 {
     invariant();
     _points += amount;
+    emit on_point_changed(_points);
     invariant();
 }
 
@@ -53,6 +54,7 @@ void Student::Statistics::reducePoints(unsigned amount)
         throw Common::StateException("Cannot reduce more points than current points");
     }
     _points -= amount;
+    emit on_point_changed(_points);
     invariant();
 }
 
@@ -66,6 +68,7 @@ void Student::Statistics::addCredits(unsigned amount)
 {
     invariant();
     _credits += amount;
+    emit on_credit_changed(_credits);
     invariant();
 }
 
@@ -76,6 +79,7 @@ void Student::Statistics::reduceCredits(unsigned amount)
         throw Common::StateException("Cannot have lower credits than allowance");
     }
     _credits -= amount;
+    emit on_credit_changed(_credits);
     invariant();
 }
 
