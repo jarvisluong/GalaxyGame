@@ -32,7 +32,15 @@ public:
      */
     static const QRect sceneRect;
 
+    /*!
+     * \brief star_image_author is the author of the star image
+     */
     static const QString star_image_author;
+
+    /*!
+     * \brief playerMaxHealth is the maximum health of the player
+     */
+    static const int playerMaxHealth = 50;
 };
 
 #endif // CONSTANTS_H

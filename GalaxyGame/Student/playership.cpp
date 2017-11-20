@@ -1,4 +1,5 @@
 #include "playership.h"
+#include "constants.hh"
 #include <QDebug>
 
 namespace Student {
@@ -38,8 +39,8 @@ void PlayerShip::decreaseHealth(int amount)
 void PlayerShip::increaseHealth(int amount)
 {
     invariant();
-    if (_health + amount >= maxHealth) {
-        _health = maxHealth;
+    if (_health + amount >= Constants::playerMaxHealth) {
+        _health = Constants::playerMaxHealth;
     } else {
         _health += amount;
     }
@@ -69,7 +70,7 @@ QGraphicsPixmapItem *PlayerShip::get_ui_item()
 
 void PlayerShip::invariant()
 {
-    Q_ASSERT(_health >= 0 && _health <= maxHealth);
+    Q_ASSERT(_health >= 0 && _health <= Constants::playerMaxHealth);
 }
 
 }

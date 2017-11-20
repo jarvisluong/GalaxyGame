@@ -70,7 +70,7 @@ signals:
 private:
     /*!
      * \brief invariant
-     * \pre health always between 0 and maxHealth
+     * \pre health always between 0 and Constants::playerMaxHealth
      */
     void invariant();
 
@@ -78,11 +78,6 @@ private:
      * \brief ui_item the pointer to the UI display item of the ship
      */
     QGraphicsPixmapItem* ui_item;
-
-    /*!
-     * \brief maxHealth maxHealth allow for the ship
-     */
-    const unsigned int maxHealth = 50;
 
     /*!
      * \brief _location current location of the ship
