@@ -7,6 +7,9 @@ namespace Ui {
 class Dialog;
 }
 
+/*!
+ * \brief The Dialog class. This Dialog display the configuration dialog before the real game
+ */
 class Dialog : public QDialog
 {
     Q_OBJECT

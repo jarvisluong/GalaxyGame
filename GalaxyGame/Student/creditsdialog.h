@@ -7,6 +7,10 @@ namespace Ui {
 class CreditsDialog;
 }
 
+/*!
+ * \brief The CreditsDialog class. This Dialog display the credit of the author of the
+ * images we used in the game
+ */
 class CreditsDialog : public QDialog
 {
     Q_OBJECT
