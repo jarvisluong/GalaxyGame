@@ -38,6 +38,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->viewCreditsBtn, SIGNAL(clicked(bool)), this, SLOT(on_viewCreditsBtn_clicked()));
     connect(_player_ship, SIGNAL(healthChanged(int)), this, SLOT(on_player_health_changed(int)));
     connect(_player_ship, SIGNAL(loseAllHealth()), this, SLOT(on_player_lose_all_health()));
+
+    stat_info = new Student::Statistics();
+    connect(stat_info, SIGNAL(on_point_changed(uint)), this, SLOT(on_statistic_point_changed(uint)));
+    connect(stat_info, SIGNAL(on_credit_changed(uint)), this, SLOT(on_statistic_credit_changed(uint)));
+    stat_info->addCredits(10);
 }
 
 void MainWindow::setEventHandler(std::shared_ptr<Common::IEventHandler> handler_)
@@ -67,13 +72,16 @@ void MainWindow::setGalaxy(Common::IGalaxy *galaxy_)
 void MainWindow::updateListWidget(Common::IGalaxy::ShipVector ships)
 {
     ui->shipListWidget->clear();
-
     for(int i = 0; i < ships.size(); i++) {
         QString ship_name = QString::fromStdString(ships[i]->getName());
         QString health = QString::number(ships[i]->getEngine()->getHealth());
         CustomListWidgetItem* item = new CustomListWidgetItem(ship_name + "; Health: " + health, ui->shipListWidget);
-        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-        item->setCheckState(Qt::Unchecked);
+        if(!ships[i]->isAbandoned()) {
+            item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+            item->setCheckState(Qt::Unchecked);
+        } else {
+            item->setTextColor(QColor("red"));
+        }
         item->setShipForWidgetItem(ships[i]);
         ui->shipListWidget->addItem(item);
     }
@@ -143,15 +151,28 @@ void MainWindow::transformCoordinates(int& x, int& y)
 
 void MainWindow::on_saveSelectedShipsBtn_clicked()
 {
-    qDebug() << "saved ships are below (for now we call decreaseHealth(2) for each ship because health == maxHealth): " << endl;
+    // update points, credits, health of player-ship, health of saved ships
+    int tempPoint = 0, tempCredit = 0, tempMinusHealth = 0, numberOfSavedShips = 0;
+
     for(int i = 0; i < ui->shipListWidget->count(); i++) {
         QListWidgetItem* item = ui->shipListWidget->item(i);
         CustomListWidgetItem* customItem = static_cast<CustomListWidgetItem*> (item);
         if(customItem->checkState()) {
-            customItem->getShipFromWidgetItem()->getEngine()->decreaseHealth(2);
-            qDebug() << QString::fromStdString(customItem->getShipFromWidgetItem()->getName()) << " " << QString::number(customItem->getShipFromWidgetItem()->getEngine()->getHealth()) << endl;
+            numberOfSavedShips++;
+            int max_health = customItem->getShipFromWidgetItem()->getEngine()->getMaxHealth();
+            int current_health = customItem->getShipFromWidgetItem()->getEngine()->getHealth();
+            tempMinusHealth +=  max_health - current_health;
+            customItem->getShipFromWidgetItem()->getEngine()->repair(max_health - current_health);
         }
+    }
 
+    // user may press save ships which already have max health- ignore these cases (tempMinusHealth=0)
+    if(tempMinusHealth != 0) {
+        tempPoint += numberOfSavedShips;
+        tempCredit += 5*numberOfSavedShips + tempMinusHealth / 2;
+        stat_info->addCredits(tempCredit);
+        stat_info->addPoints(tempPoint);
+        _player_ship->decreaseHealth(tempMinusHealth);
     }
 }
 
@@ -165,4 +186,14 @@ void MainWindow::on_player_lose_all_health()
 {
     qDebug() << "You lose all health" << endl;
     ui->healthLCDNumber->display(0);
+}
+
+void MainWindow::on_statistic_point_changed(unsigned new_point)
+{
+    ui->pointLCDNumber->display(QString::number(new_point));
+}
+
+void MainWindow::on_statistic_credit_changed(unsigned new_credit)
+{
+    ui->creditLCDNumber->display(QString::number(new_credit));
 }
