@@ -4,20 +4,22 @@
 #include "ship.hh"
 #include "point.hh"
 #include <QGraphicsPixmapItem>
+#include <QObject>
 
 namespace Student {
 /*!
  * \brief The PlayerShip class
  */
-class PlayerShip
+class PlayerShip : public QObject
 {
+    Q_OBJECT
 public:
     /*!
      * \brief PlayerShip constructor
      * \param initialLocation initial location for the ship to be put in the system
      * \param initialHealth initial health for the ship
      */
-    PlayerShip(Common::Point initialLocation, unsigned int initialHealth = 50);
+    PlayerShip(Common::Point initialLocation, int initialHealth = 50);
 
     /*!
      * \brief goToLocation this method makes the ship to change location in the system
@@ -29,19 +31,19 @@ public:
      * \brief decreaseHealth decrease health of the ship
      * \param amount amount of health to decrease
      */
-    void decreaseHealth(unsigned int amount);
+    void decreaseHealth(int amount);
 
     /*!
      * \brief increaseHealth increase health of the ship
      * \param amount amount of health to increase
      */
-    void increaseHealth(unsigned int amount);
+    void increaseHealth(int amount);
 
     /*!
      * \brief getHealth get the current health of the ship
      * \return the health of the ship
      */
-    unsigned int getHealth();
+    int getHealth();
 
     /*!
      * \brief getLocation get the current location of the ship
@@ -60,6 +62,10 @@ public:
      * \return the pointer to the PixMap item of the ship
      */
     QGraphicsPixmapItem *get_ui_item();
+
+signals:
+    void healthChanged(int new_health);
+
 private:
     /*!
      * \brief invariant
@@ -85,7 +91,7 @@ private:
     /*!
      * \brief _health current health of the ship
      */
-    unsigned int _health;
+    int _health;
 };
 }
 

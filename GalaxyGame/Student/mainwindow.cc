@@ -36,6 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
     initPlayerShip();
 
     connect(ui->viewCreditsBtn, SIGNAL(clicked(bool)), this, SLOT(on_viewCreditsBtn_clicked()));
+    connect(_player_ship, SIGNAL(healthChanged(int)), this, SLOT(on_player_health_changed(int)));
 }
 
 void MainWindow::setEventHandler(std::shared_ptr<Common::IEventHandler> handler_)
@@ -150,4 +151,10 @@ void MainWindow::on_saveSelectedShipsBtn_clicked()
         }
 
     }
+}
+
+void MainWindow::on_player_health_changed(int new_health)
+{
+    qDebug() << "updaing health" << new_health << endl;
+    ui->healthLCDNumber->display(new_health);
 }

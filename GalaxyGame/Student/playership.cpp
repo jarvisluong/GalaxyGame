@@ -1,16 +1,14 @@
 #include "playership.h"
 #include <QDebug>
-#include <QPixmap>
-#include <QImage>
 
 namespace Student {
 
-PlayerShip::PlayerShip(Common::Point initialLocation, unsigned int initialHealth)
+PlayerShip::PlayerShip(Common::Point initialLocation, int initialHealth)
     :_location(initialLocation),
       _health(initialHealth)
 {
-    QImage ship_image;
     invariant();
+    emit healthChanged(_health);
 }
 
 void PlayerShip::goToLocation(Common::Point nextLocation)
@@ -19,7 +17,7 @@ void PlayerShip::goToLocation(Common::Point nextLocation)
     ui_item->setPos(nextLocation.x * 21 + 500, nextLocation.y * 21 + 500);
 }
 
-void PlayerShip::decreaseHealth(unsigned int amount)
+void PlayerShip::decreaseHealth(int amount)
 {
     invariant();
     if (_health <= amount) {
@@ -28,9 +26,10 @@ void PlayerShip::decreaseHealth(unsigned int amount)
         _health -= amount;
     }
     invariant();
+    emit healthChanged(_health);
 }
 
-void PlayerShip::increaseHealth(unsigned int amount)
+void PlayerShip::increaseHealth(int amount)
 {
     invariant();
     if (_health + amount >= maxHealth) {
@@ -39,9 +38,10 @@ void PlayerShip::increaseHealth(unsigned int amount)
         _health += amount;
     }
     invariant();
+    emit healthChanged(_health);
 }
 
-unsigned int PlayerShip::getHealth()
+int PlayerShip::getHealth()
 {
     return _health;
 }
