@@ -4,6 +4,7 @@
 #include "ieventhandler.hh"
 #include "igamerunner.hh"
 #include "galaxy.hh"
+#include "playership.h"
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QImage>
@@ -50,6 +51,8 @@ public:
      * \param ships The ships that are in a star system.
      */
     void updateListWidget(Common::IGalaxy::ShipVector ships);
+    void updatePlayerShipLocation(Common::Point new_location);
+    void initPlayerShip();
     ~MainWindow();
 public slots:
     /*!
@@ -65,6 +68,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    Student::PlayerShip* _player_ship;
     QGraphicsScene* galaxy_scene;
     QImage ship_image;
     QImage star_image;

@@ -33,6 +33,9 @@ int main(int argc, char *argv[])
     if(configWindow.exec()) {
         w.getGameRunner()->spawnShips(configWindow.getNumberOfShips());
         w.show();
+    } else {
+        // If the user decides to close the configuration window
+        return 0;
     }
 //    Student::EventHandler* student_handler = dynamic_cast<Student::EventHandler*>(handler.get());
 

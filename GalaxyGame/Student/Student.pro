@@ -23,7 +23,8 @@ SOURCES += \
     dialog.cc \
     creditsdialog.cpp \
     customitem.cc \
-    customlistwidgetitem.cc
+    customlistwidgetitem.cc \
+    playership.cpp
 
 HEADERS  += \
     galaxy.hh \
@@ -35,7 +36,8 @@ HEADERS  += \
     creditsdialog.h \
     customitem.hh \
     customlistwidgetitem.hh \
-    utilities.hh
+    utilities.hh \
+    playership.h
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course

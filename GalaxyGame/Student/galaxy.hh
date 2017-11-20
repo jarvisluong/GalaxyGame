@@ -7,6 +7,7 @@
 #include "point.hh"
 #include "mainwindow.hh"
 #include "constants.hh"
+#include "playership.h"
 #include <QObject>
 namespace Student {
 

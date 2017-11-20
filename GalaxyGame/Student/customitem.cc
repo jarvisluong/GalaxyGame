@@ -4,15 +4,16 @@
 #include <QGraphicsSceneMouseEvent>
 using namespace Utilities;
 
-CustomItem::CustomItem(QPixmap pixmap_): QGraphicsPixmapItem(pixmap_)
+CustomItem::CustomItem(QPixmap pixmap_, Common::Point location): QGraphicsPixmapItem(pixmap_), _location(location)
 {
 
 }
 
 void CustomItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-     Common::IGalaxy::ShipVector shipVector = galaxy->getShipsInStarSystem(starSystem->getName());
+     Common::IGalaxy::ShipVector shipVector = galaxy->getShipsInStarSystem(name);
      window->updateListWidget(shipVector);
+     window->updatePlayerShipLocation(_location);
 }
 
 void CustomItem::setGalaxyForStarSystemItem(Student::Galaxy *galaxy_)
@@ -21,14 +22,23 @@ void CustomItem::setGalaxyForStarSystemItem(Student::Galaxy *galaxy_)
     galaxy = galaxy_;
 }
 
+void CustomItem::setNameForStarSystemItem(std::string name_)
+{
+    name = name_;
+}
+
 void CustomItem::setMainWindowForStarSystemItem(MainWindow *w_)
 {
     assert_not_null(w_);
     window = w_;
 }
 
-void CustomItem::setStarSystemForItem(std::shared_ptr<Common::StarSystem> star_)
+void CustomItem::setLocationForStarSystemItem(Common::Point location)
 {
-    assert_not_null(star_.get());
-    starSystem = star_;
+    _location = location;
+}
+
+Common::Point CustomItem::getLocation()
+{
+    return _location;
 }
