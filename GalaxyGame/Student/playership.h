@@ -65,6 +65,7 @@ public:
 
 signals:
     void healthChanged(int new_health);
+    void loseAllHealth();
 
 private:
     /*!

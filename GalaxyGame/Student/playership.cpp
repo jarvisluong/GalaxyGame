@@ -8,11 +8,13 @@ PlayerShip::PlayerShip(Common::Point initialLocation, int initialHealth)
       _health(initialHealth)
 {
     invariant();
-    emit healthChanged(_health);
 }
 
 void PlayerShip::goToLocation(Common::Point nextLocation)
 {
+    double distance = nextLocation.distanceTo(_location);
+    int health_to_decrease = (int)(distance / 2);
+    decreaseHealth(health_to_decrease);
     _location = nextLocation;
     ui_item->setPos(nextLocation.x * 21 + 500, nextLocation.y * 21 + 500);
 }
@@ -26,7 +28,11 @@ void PlayerShip::decreaseHealth(int amount)
         _health -= amount;
     }
     invariant();
-    emit healthChanged(_health);
+    if (_health == 0) {
+        emit loseAllHealth();
+    } else {
+        emit healthChanged(_health);
+    }
 }
 
 void PlayerShip::increaseHealth(int amount)

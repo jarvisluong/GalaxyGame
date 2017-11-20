@@ -37,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->viewCreditsBtn, SIGNAL(clicked(bool)), this, SLOT(on_viewCreditsBtn_clicked()));
     connect(_player_ship, SIGNAL(healthChanged(int)), this, SLOT(on_player_health_changed(int)));
+    connect(_player_ship, SIGNAL(loseAllHealth()), this, SLOT(on_player_lose_all_health()));
 }
 
 void MainWindow::setEventHandler(std::shared_ptr<Common::IEventHandler> handler_)
@@ -88,7 +89,8 @@ void MainWindow::initPlayerShip()
 {
     ship_image.load("Assets/spaceship.png");
     ship_image = ship_image.scaled(20, 20);
-    _player_ship = new Student::PlayerShip(Common::Point(500, 500));
+    _player_ship = new Student::PlayerShip(Common::Point(0, 0));
+    ui->healthLCDNumber->display(50);
     QGraphicsPixmapItem *ui_item = new QGraphicsPixmapItem(QPixmap::fromImage(ship_image));
     ui_item->setPos(500, 500);
     _player_ship->set_ui_item(ui_item);
@@ -157,4 +159,10 @@ void MainWindow::on_player_health_changed(int new_health)
 {
     qDebug() << "updaing health" << new_health << endl;
     ui->healthLCDNumber->display(new_health);
+}
+
+void MainWindow::on_player_lose_all_health()
+{
+    qDebug() << "You lose all health" << endl;
+    ui->healthLCDNumber->display(0);
 }

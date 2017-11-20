@@ -62,6 +62,7 @@ public slots:
      */
     void addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> starSystem);
     void on_player_health_changed(int new_health);
+    void on_player_lose_all_health();
 private slots:
     void on_endTurnBtn_clicked();
     void on_viewCreditsBtn_clicked();
