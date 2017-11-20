@@ -6,6 +6,7 @@
 #include "galaxy.hh"
 #include "playership.h"
 #include "statistics.hh"
+#include "buyhealthdialog.hh"
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QImage>
@@ -71,6 +72,9 @@ private slots:
     void on_saveSelectedShipsBtn_clicked();
     void on_statistic_point_changed(unsigned new_point);
     void on_statistic_credit_changed(unsigned new_credit);
+    void on_buy_health_dialog_button_clicked();
+    void on_buyHealthBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     Student::PlayerShip* _player_ship;
@@ -82,6 +86,7 @@ private:
     Common::IGalaxy* galaxy;
     void transformCoordinates(int& x, int& y);
     Student::Statistics* stat_info;
+    BuyHealthDialog* buy_dialog;
 };
 
 #endif // MAINWINDOW_H

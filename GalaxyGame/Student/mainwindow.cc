@@ -43,6 +43,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(stat_info, SIGNAL(on_point_changed(uint)), this, SLOT(on_statistic_point_changed(uint)));
     connect(stat_info, SIGNAL(on_credit_changed(uint)), this, SLOT(on_statistic_credit_changed(uint)));
     stat_info->addCredits(10);
+
+    buy_dialog = new BuyHealthDialog(10);
+    connect(buy_dialog, SIGNAL(on_buy_btn_clicked()), this, SLOT(on_buy_health_dialog_button_clicked()));
 }
 
 void MainWindow::setEventHandler(std::shared_ptr<Common::IEventHandler> handler_)
@@ -71,20 +74,21 @@ void MainWindow::setGalaxy(Common::IGalaxy *galaxy_)
 
 void MainWindow::updateListWidget(Common::IGalaxy::ShipVector ships)
 {
-    ui->shipListWidget->clear();
-    for(int i = 0; i < ships.size(); i++) {
-        QString ship_name = QString::fromStdString(ships[i]->getName());
-        QString health = QString::number(ships[i]->getEngine()->getHealth());
-        CustomListWidgetItem* item = new CustomListWidgetItem(ship_name + "; Health: " + health, ui->shipListWidget);
-        if(!ships[i]->isAbandoned()) {
-            item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-            item->setCheckState(Qt::Unchecked);
-        } else {
-            item->setTextColor(QColor("red"));
+        ui->shipListWidget->clear();
+        for(int i = 0; i < ships.size(); i++) {
+            ships[i]->getEngine()->decreaseHealth(5);
+            QString ship_name = QString::fromStdString(ships[i]->getName());
+            QString health = QString::number(ships[i]->getEngine()->getHealth());
+            CustomListWidgetItem* item = new CustomListWidgetItem(ship_name + "; Health: " + health, ui->shipListWidget);
+            if(!ships[i]->isAbandoned()) {
+                item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+                item->setCheckState(Qt::Unchecked);
+            } else {
+                item->setTextColor(QColor("red"));
+            }
+            item->setShipForWidgetItem(ships[i]);
+            ui->shipListWidget->addItem(item);
         }
-        item->setShipForWidgetItem(ships[i]);
-        ui->shipListWidget->addItem(item);
-    }
 }
 
 void MainWindow::updatePlayerShipLocation(Common::Point new_location)
@@ -153,16 +157,25 @@ void MainWindow::on_saveSelectedShipsBtn_clicked()
 {
     // update points, credits, health of player-ship, health of saved ships
     int tempPoint = 0, tempCredit = 0, tempMinusHealth = 0, numberOfSavedShips = 0;
-
+    Common::IGalaxy::ShipVector ships_;
     for(int i = 0; i < ui->shipListWidget->count(); i++) {
         QListWidgetItem* item = ui->shipListWidget->item(i);
         CustomListWidgetItem* customItem = static_cast<CustomListWidgetItem*> (item);
         if(customItem->checkState()) {
+            ships_.push_back(customItem->getShipFromWidgetItem());
             numberOfSavedShips++;
             int max_health = customItem->getShipFromWidgetItem()->getEngine()->getMaxHealth();
             int current_health = customItem->getShipFromWidgetItem()->getEngine()->getHealth();
             tempMinusHealth +=  max_health - current_health;
             customItem->getShipFromWidgetItem()->getEngine()->repair(max_health - current_health);
+
+            QString name = QString::fromStdString(customItem->getShipFromWidgetItem()->getName());
+            QString health = QString::number(max_health);
+            customItem->setText(name + "; Health: " + health);
+            customItem->setTextColor("green");
+            customItem->setFlags(item->flags());
+            customItem->setData(10, QVariant());
+
         }
     }
 
@@ -196,4 +209,17 @@ void MainWindow::on_statistic_point_changed(unsigned new_point)
 void MainWindow::on_statistic_credit_changed(unsigned new_credit)
 {
     ui->creditLCDNumber->display(QString::number(new_credit));
+}
+
+void MainWindow::on_buy_health_dialog_button_clicked()
+{
+    _player_ship->increaseHealth(buy_dialog->getNumberOfHealthToBuy());
+    stat_info->reduceCredits(buy_dialog->getNumberOfHealthToBuy() * 5);
+    buy_dialog->close();
+}
+
+void MainWindow::on_buyHealthBtn_clicked()
+{
+    buy_dialog->setCreditsForText(stat_info->getCreditBalance());
+    buy_dialog->show();
 }
