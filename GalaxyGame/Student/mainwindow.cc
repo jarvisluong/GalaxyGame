@@ -67,7 +67,11 @@ void MainWindow::updateListWidget(Common::IGalaxy::ShipVector ships)
 
     for(int i = 0; i < ships.size(); i++) {
         QString ship_name = QString::fromStdString(ships[i]->getName());
-        QString health = QString::number(ships[i]->getEngine()->getHealth());
+        int current_ship_health = ships[i]->getEngine()->getHealth();
+        if (current_ship_health == 0) {
+            ships[i]->abandonShip();
+        }
+        QString health = QString::number(current_ship_health);
         CustomListWidgetItem* item = new CustomListWidgetItem(ship_name + "; Health: " + health, ui->shipListWidget);
         item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
         item->setCheckState(Qt::Unchecked);
