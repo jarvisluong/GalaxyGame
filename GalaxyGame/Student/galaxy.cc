@@ -129,6 +129,21 @@ std::shared_ptr<Common::StarSystem> Student::Galaxy::getStarSystemById(unsigned 
     return *iter_found_system;
 }
 
+std::shared_ptr<Common::StarSystem> Student::Galaxy::getStarSystemByLocation(Common::Point location)
+{
+    auto iter_found_system = std::find_if(
+                                _star_systems_in_galaxy.begin(),
+                                _star_systems_in_galaxy.end(),
+                                [location](auto star_system) {
+                                    return star_system->getCoordinates() == location;
+                                   }
+                                          );
+    if (iter_found_system == _star_systems_in_galaxy.end()) {
+        throw Common::ObjectNotFoundException("The Star System with the given location does not exist");
+    }
+    return *iter_found_system;
+}
+
 bool Student::Galaxy::isSytemInGalaxy(std::shared_ptr<Common::StarSystem> starSystem)
 {
     std::string name = starSystem->getName();

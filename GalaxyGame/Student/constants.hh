@@ -1,5 +1,6 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
+#include "point.hh"
 #include <QString>
 #include <QRect>
 /*!
@@ -41,6 +42,11 @@ public:
      * \brief playerMaxHealth is the maximum health of the player
      */
     static const int playerMaxHealth = 50;
+
+    /*!
+     * \brief initialPlayerLocation is the initial location of the player in the galaxy
+     */
+    static const Common::Point initialPlayerLocation;
 };
 
 #endif // CONSTANTS_H

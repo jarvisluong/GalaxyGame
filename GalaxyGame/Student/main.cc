@@ -32,6 +32,7 @@ int main(int argc, char *argv[])
     Dialog configWindow;
     if(configWindow.exec()) {
         w.getGameRunner()->spawnShips(configWindow.getNumberOfShips());
+        w.initPlayerShip();
         w.show();
     } else {
         // If the user decides to close the configuration window

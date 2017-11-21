@@ -32,6 +32,15 @@ public:
     std::vector<std::string> getSystemNames();
     std::shared_ptr<Common::StarSystem> getStarSystemByName(std::string name);
     std::shared_ptr<Common::StarSystem> getStarSystemById(unsigned id);
+
+    /**
+     * @brief getStarSystemByLocation gets an instance of the star system by location
+     * @param location Location of the star system
+     * @return Shared pointer to the object of the star system
+     * @exception ObjectNotFoundException, if the star system with given location does not exist
+     * @post Exception guarantee: strong
+     */
+    std::shared_ptr<Common::StarSystem> getStarSystemByLocation(Common::Point location);
     /*!
      * \brief Checks if a star system is in the galaxy.
      * \param starSystem The star system that needs to be checked.

@@ -5,6 +5,7 @@
 #include "customitem.hh"
 #include "customlistwidgetitem.hh"
 #include "utilities.hh"
+#include "objectnotfoundexception.hh"
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
@@ -33,11 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     star_image.load("Assets/star.png");
     star_image = star_image.scaled(20, 20);
 
-    initPlayerShip();
-
     connect(ui->viewCreditsBtn, SIGNAL(clicked(bool)), this, SLOT(on_viewCreditsBtn_clicked()));
-    connect(_player_ship, SIGNAL(healthChanged(int)), this, SLOT(on_player_health_changed(int)));
-    connect(_player_ship, SIGNAL(loseAllHealth()), this, SLOT(on_player_lose_all_health()));
 }
 
 void MainWindow::setEventHandler(std::shared_ptr<Common::IEventHandler> handler_)
@@ -89,12 +86,20 @@ void MainWindow::initPlayerShip()
 {
     ship_image.load("Assets/spaceship.png");
     ship_image = ship_image.scaled(20, 20);
-    _player_ship = new Student::PlayerShip(Common::Point(0, 0));
+    _player_ship = new Student::PlayerShip(Constants::initialPlayerLocation);
     ui->healthLCDNumber->display(50);
     QGraphicsPixmapItem *ui_item = new QGraphicsPixmapItem(QPixmap::fromImage(ship_image));
     ui_item->setPos(500, 500);
+    ui->starSystemNameLabel->setText(QString::fromStdString(
+                "You are at star system: "
+                + static_cast<Student::Galaxy*>(galaxy)
+                ->getStarSystemByLocation(Constants::initialPlayerLocation)
+                ->getName()
+    ));
     _player_ship->set_ui_item(ui_item);
-    galaxy_scene->addItem(_player_ship->get_ui_item());
+    galaxy_scene->addItem(_player_ship->get_ui_item());   
+    connect(_player_ship, SIGNAL(healthChanged(int)), this, SLOT(on_player_health_changed(int)));
+    connect(_player_ship, SIGNAL(loseAllHealth()), this, SLOT(on_player_lose_all_health()));
 }
 
 
