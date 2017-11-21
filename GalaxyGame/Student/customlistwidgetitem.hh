@@ -26,7 +26,7 @@ public:
      * \return shared_ptr to the ship property.
      */
     std::shared_ptr<Common::Ship> getShipFromWidgetItem();
-private:
+protected:
     std::shared_ptr<Common::Ship> ship;
 };
 
