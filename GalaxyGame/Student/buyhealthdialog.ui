@@ -62,6 +62,19 @@
     <string>Buy</string>
    </property>
   </widget>
+  <widget class="QLabel" name="notificationLabel">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>130</y>
+     <width>311</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Maximum health is 50. Buy x healths is enough.</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
