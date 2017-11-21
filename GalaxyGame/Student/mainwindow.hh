@@ -5,6 +5,8 @@
 #include "igamerunner.hh"
 #include "galaxy.hh"
 #include "playership.h"
+#include "statistics.hh"
+#include "buyhealthdialog.hh"
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QImage>
@@ -65,10 +67,15 @@ public slots:
     void addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> starSystem);
     void on_player_health_changed(int new_health);
     void on_player_lose_all_health();
+
 private slots:
     void on_endTurnBtn_clicked();
     void on_viewCreditsBtn_clicked();
     void on_saveSelectedShipsBtn_clicked();
+    void on_statistic_point_changed(unsigned new_point);
+    void on_statistic_credit_changed(unsigned new_credit);
+    void on_buy_health_dialog_button_clicked();
+    void on_buyHealthBtn_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -80,6 +87,8 @@ private:
     std::shared_ptr<Common::IGameRunner> gameRunner;
     Student::Galaxy* galaxy;
     void transformCoordinates(int& x, int& y);
+    Student::Statistics* stat_info;
+    BuyHealthDialog* buy_dialog;
 };
 
 #endif // MAINWINDOW_H

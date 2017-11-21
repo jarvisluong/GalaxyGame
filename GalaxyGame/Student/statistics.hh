@@ -2,10 +2,12 @@
 #define STATISTICS_HH
 
 #include "istatistics.hh"
+#include <QObject>
 namespace Student {
 
-class Statistics : public Common::IStatistics
+class Statistics : public QObject, public Common::IStatistics
 {
+    Q_OBJECT
 public:
     Statistics();
 
@@ -22,7 +24,9 @@ public:
      void addCredits(unsigned amount);
      void reduceCredits(unsigned amount);
      int getCreditBalance() const;
-
+signals:
+     void on_point_changed(unsigned point_);
+     void on_credit_changed(unsigned credit_);
 private:
     unsigned _number_of_saved_ships;
     unsigned _number_of_lost_ships;

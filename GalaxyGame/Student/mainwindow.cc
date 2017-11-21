@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->authorLabel->setText(Constants::author);
     ui->versionLabel->setText(Constants::version);
     ui->shipListWidget->setSelectionMode(QAbstractItemView::NoSelection);
-
+    ui->buyHealthBtn->setEnabled(false);
     galaxy_scene = new QGraphicsScene(Constants::sceneRect);
     galaxy_scene->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
     ui->galaxyView->setScene(galaxy_scene);
@@ -35,6 +35,14 @@ MainWindow::MainWindow(QWidget *parent) :
     star_image = star_image.scaled(20, 20);
 
     connect(ui->viewCreditsBtn, SIGNAL(clicked(bool)), this, SLOT(on_viewCreditsBtn_clicked()));
+
+    stat_info = new Student::Statistics();
+    connect(stat_info, SIGNAL(on_point_changed(uint)), this, SLOT(on_statistic_point_changed(uint)));
+    connect(stat_info, SIGNAL(on_credit_changed(uint)), this, SLOT(on_statistic_credit_changed(uint)));
+    stat_info->addCredits(10);
+
+    buy_dialog = new BuyHealthDialog(10);
+    connect(buy_dialog, SIGNAL(on_buy_btn_clicked()), this, SLOT(on_buy_health_dialog_button_clicked()));
 }
 
 void MainWindow::setEventHandler(std::shared_ptr<Common::IEventHandler> handler_)
@@ -63,21 +71,25 @@ void MainWindow::setGalaxy(Student::Galaxy *galaxy_)
 
 void MainWindow::updateListWidget(Common::IGalaxy::ShipVector ships)
 {
-    ui->shipListWidget->clear();
-
-    for(int i = 0; i < ships.size(); i++) {
-        QString ship_name = QString::fromStdString(ships[i]->getName());
-        int current_ship_health = ships[i]->getEngine()->getHealth();
-        if (current_ship_health == 0) {
-            ships[i]->abandonShip();
+        ui->shipListWidget->clear();
+        for(int i = 0; i < ships.size(); i++) {
+            ships[i]->getEngine()->decreaseHealth(5);
+            QString ship_name = QString::fromStdString(ships[i]->getName());
+            int current_ship_health = ships[i]->getEngine()->getHealth();
+            if (current_ship_health == 0) {
+                ships[i]->abandonShip();
+            }
+            QString health = QString::number(current_ship_health);
+            CustomListWidgetItem* item = new CustomListWidgetItem(ship_name + "; Health: " + health, ui->shipListWidget);
+            if(!ships[i]->isAbandoned()) {
+                item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+                item->setCheckState(Qt::Unchecked);
+            } else {
+                item->setTextColor(QColor("red"));
+            }
+            item->setShipForWidgetItem(ships[i]);
+            ui->shipListWidget->addItem(item);
         }
-        QString health = QString::number(current_ship_health);
-        CustomListWidgetItem* item = new CustomListWidgetItem(ship_name + "; Health: " + health, ui->shipListWidget);
-        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-        item->setCheckState(Qt::Unchecked);
-        item->setShipForWidgetItem(ships[i]);
-        ui->shipListWidget->addItem(item);
-    }
 }
 
 void MainWindow::updatePlayerShipLocation(Common::Point new_location)
@@ -158,15 +170,35 @@ void MainWindow::transformCoordinates(int& x, int& y)
 
 void MainWindow::on_saveSelectedShipsBtn_clicked()
 {
-    qDebug() << "saved ships are below (for now we call decreaseHealth(2) for each ship because health == maxHealth): " << endl;
+    // update points, credits, health of player-ship, health of saved ships
+    int tempPoint = 0, tempCredit = 0, tempMinusHealth = 0, numberOfSavedShips = 0;
+    Common::IGalaxy::ShipVector ships_;
     for(int i = 0; i < ui->shipListWidget->count(); i++) {
         QListWidgetItem* item = ui->shipListWidget->item(i);
         CustomListWidgetItem* customItem = static_cast<CustomListWidgetItem*> (item);
         if(customItem->checkState()) {
-            customItem->getShipFromWidgetItem()->getEngine()->decreaseHealth(2);
-            qDebug() << QString::fromStdString(customItem->getShipFromWidgetItem()->getName()) << " " << QString::number(customItem->getShipFromWidgetItem()->getEngine()->getHealth()) << endl;
-        }
+            ships_.push_back(customItem->getShipFromWidgetItem());
+            numberOfSavedShips++;
+            int max_health = customItem->getShipFromWidgetItem()->getEngine()->getMaxHealth();
+            int current_health = customItem->getShipFromWidgetItem()->getEngine()->getHealth();
+            tempMinusHealth +=  max_health - current_health;
+            customItem->getShipFromWidgetItem()->getEngine()->repair(max_health - current_health);
 
+            QString name = QString::fromStdString(customItem->getShipFromWidgetItem()->getName());
+            QString health = QString::number(max_health);
+            customItem->setText(name + "; Health: " + health);
+            customItem->setTextColor("green");
+            customItem->setData(10, QVariant());
+        }
+    }
+
+    // user may press save ships which already have max health- ignore these cases (tempMinusHealth=0)
+    if(tempMinusHealth != 0) {
+        tempPoint += numberOfSavedShips;
+        tempCredit += 5*numberOfSavedShips + tempMinusHealth / 2;
+        stat_info->addCredits(tempCredit);
+        stat_info->addPoints(tempPoint);
+        _player_ship->decreaseHealth(tempMinusHealth);
     }
 }
 
@@ -174,10 +206,38 @@ void MainWindow::on_player_health_changed(int new_health)
 {
     qDebug() << "updaing health" << new_health << endl;
     ui->healthLCDNumber->display(new_health);
+    if(_player_ship->getHealth() >= 50) {
+        ui->buyHealthBtn->setEnabled(false);
+    } else {
+        ui->buyHealthBtn->setEnabled(true);
+    }
 }
 
 void MainWindow::on_player_lose_all_health()
 {
     qDebug() << "You lose all health" << endl;
     ui->healthLCDNumber->display(0);
+}
+
+void MainWindow::on_statistic_point_changed(unsigned new_point)
+{
+    ui->pointLCDNumber->display(QString::number(new_point));
+}
+
+void MainWindow::on_statistic_credit_changed(unsigned new_credit)
+{
+    ui->creditLCDNumber->display(QString::number(new_credit));
+}
+
+void MainWindow::on_buy_health_dialog_button_clicked()
+{
+    _player_ship->increaseHealth(buy_dialog->getNumberOfHealthToBuy());
+    stat_info->reduceCredits(buy_dialog->getNumberOfHealthToBuy() * 5);
+    buy_dialog->close();
+}
+
+void MainWindow::on_buyHealthBtn_clicked()
+{
+    buy_dialog->setCreditsForText(stat_info->getCreditBalance(), _player_ship->getHealth());
+    buy_dialog->show();
 }

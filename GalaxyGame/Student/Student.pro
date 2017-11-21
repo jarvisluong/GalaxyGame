@@ -24,7 +24,8 @@ SOURCES += \
     creditsdialog.cpp \
     customitem.cc \
     customlistwidgetitem.cc \
-    playership.cpp
+    playership.cpp \
+    buyhealthdialog.cc
 
 HEADERS  += \
     galaxy.hh \
@@ -37,7 +38,8 @@ HEADERS  += \
     customitem.hh \
     customlistwidgetitem.hh \
     utilities.hh \
-    playership.h
+    playership.h \
+    buyhealthdialog.hh
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course
@@ -75,4 +77,5 @@ POST_TARGETDEPS += copyfiles
 FORMS += \
     mainwindow.ui \
     dialog.ui \
-    creditsdialog.ui
+    creditsdialog.ui \
+    buyhealthdialog.ui
