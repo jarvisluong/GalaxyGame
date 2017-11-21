@@ -18,12 +18,9 @@ int main(int argc, char *argv[])
 
     std::shared_ptr<Common::IEventHandler> handler = std::make_shared<Student::EventHandler>();
     std::shared_ptr<Student::Galaxy> galaxy = std::make_shared<Student::Galaxy>();
-
-    Student::Galaxy* myGalaxy = galaxy.get();
-    Common::IGalaxy* igalaxy = static_cast<Common::IGalaxy*>(myGalaxy);
     MainWindow w;
-    w.setGalaxy(igalaxy);
-    MainWindow::connect(myGalaxy, SIGNAL(starSystemAddedAtCoordinates(std::shared_ptr<Common::StarSystem>)), &w, SLOT(addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem>)));
+    w.setGalaxy(galaxy.get());
+    MainWindow::connect(galaxy.get(), SIGNAL(starSystemAddedAtCoordinates(std::shared_ptr<Common::StarSystem>)), &w, SLOT(addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem>)));
     std::shared_ptr<Common::IGameRunner> gameRunner = Common::getGameRunner(galaxy, handler);
     Common::utilityInit(time(NULL));
 

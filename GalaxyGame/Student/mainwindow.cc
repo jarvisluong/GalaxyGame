@@ -55,7 +55,7 @@ std::shared_ptr<Common::IGameRunner> MainWindow::getGameRunner() const
     return gameRunner;
 }
 
-void MainWindow::setGalaxy(Common::IGalaxy *galaxy_)
+void MainWindow::setGalaxy(Student::Galaxy *galaxy_)
 {
     assert_not_null(galaxy_);
     galaxy = galaxy_;
@@ -90,16 +90,22 @@ void MainWindow::initPlayerShip()
     ui->healthLCDNumber->display(50);
     QGraphicsPixmapItem *ui_item = new QGraphicsPixmapItem(QPixmap::fromImage(ship_image));
     ui_item->setPos(500, 500);
-    ui->starSystemNameLabel->setText(QString::fromStdString(
-                "You are at star system: "
-                + static_cast<Student::Galaxy*>(galaxy)
+    setStarSystemLabel(galaxy
                 ->getStarSystemByLocation(Constants::initialPlayerLocation)
                 ->getName()
-    ));
+    );
     _player_ship->set_ui_item(ui_item);
     galaxy_scene->addItem(_player_ship->get_ui_item());   
     connect(_player_ship, SIGNAL(healthChanged(int)), this, SLOT(on_player_health_changed(int)));
     connect(_player_ship, SIGNAL(loseAllHealth()), this, SLOT(on_player_lose_all_health()));
+}
+
+void MainWindow::setStarSystemLabel(std::string starSystemName)
+{
+    ui->starSystemNameLabel->setText(QString::fromStdString(
+                "You are at star system: "
+                + starSystemName
+    ));
 }
 
 
@@ -121,7 +127,7 @@ void MainWindow::addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> 
     transformCoordinates(x, y);
     item->setPos(x, y);
     item->setFlag(QGraphicsItem::ItemIsSelectable);
-    item->setGalaxyForStarSystemItem(static_cast<Student::Galaxy*> (galaxy));
+    item->setGalaxyForStarSystemItem(Student::Galaxy* galaxy);
     item->setMainWindowForStarSystemItem(this);
     galaxy_scene->addItem(item);
 }

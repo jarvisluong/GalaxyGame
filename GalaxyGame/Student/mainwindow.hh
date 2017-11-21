@@ -38,7 +38,7 @@ public:
      * \pre galaxy_ must not be NULL pointer.
      * \param galaxy_ The galaxy_ to be set.
      */
-    void setGalaxy(Common::IGalaxy* galaxy_);
+    void setGalaxy(Student::Galaxy* galaxy_);
 
     /*!
      * \brief getGameRunner Gets the gameRunner property.
@@ -53,6 +53,8 @@ public:
     void updateListWidget(Common::IGalaxy::ShipVector ships);
     void updatePlayerShipLocation(Common::Point new_location);
     void initPlayerShip();
+
+    void setStarSystemLabel(std::string starSystemName);
     ~MainWindow();
 public slots:
     /*!
@@ -76,7 +78,7 @@ private:
     QImage star_image;
     std::shared_ptr<Common::IEventHandler> handler;
     std::shared_ptr<Common::IGameRunner> gameRunner;
-    Common::IGalaxy* galaxy;
+    Student::Galaxy* galaxy;
     void transformCoordinates(int& x, int& y);
 };
 
