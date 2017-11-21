@@ -57,6 +57,8 @@ public:
     void initPlayerShip();
 
     void setStarSystemLabel(std::string starSystemName);
+
+    void setCurrentStarSystemNameForPlayableShip(std::string system_name);
     ~MainWindow();
 public slots:
     /*!
@@ -89,6 +91,7 @@ private:
     void transformCoordinates(int& x, int& y);
     Student::Statistics* stat_info;
     BuyHealthDialog* buy_dialog;
+    std::string current_system_name;
 };
 
 #endif // MAINWINDOW_H

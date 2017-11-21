@@ -2,10 +2,13 @@
 #include "ui_mainwindow.h"
 #include "constants.hh"
 #include "creditsdialog.h"
-#include "starsystemitem.hh"
 #include "customlistwidgetitem.hh"
 #include "utilities.hh"
 #include "objectnotfoundexception.hh"
+#include "normalshipwidgetitem.hh"
+#include "abandonshipwidgetitem.hh"
+#include "fullhealthshipwidgetitem.hh"
+#include "starsystemitem.hh"
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
@@ -73,22 +76,27 @@ void MainWindow::updateListWidget(Common::IGalaxy::ShipVector ships)
 {
         ui->shipListWidget->clear();
         for(int i = 0; i < ships.size(); i++) {
-            ships[i]->getEngine()->decreaseHealth(5);
             QString ship_name = QString::fromStdString(ships[i]->getName());
             int current_ship_health = ships[i]->getEngine()->getHealth();
             if (current_ship_health == 0) {
                 ships[i]->abandonShip();
             }
             QString health = QString::number(current_ship_health);
-            CustomListWidgetItem* item = new CustomListWidgetItem(ship_name + "; Health: " + health, ui->shipListWidget);
             if(!ships[i]->isAbandoned()) {
-                item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
-                item->setCheckState(Qt::Unchecked);
+                if(ships[i]->getEngine()->getMaxHealth() == current_ship_health) {
+                    FullHealthShipWidgetItem* item = new FullHealthShipWidgetItem(ship_name + "; Health: " + health, ui->shipListWidget);
+                    item->setShipForWidgetItem(ships[i]);
+                    ui->shipListWidget->addItem(item);
+                } else {
+                    NormalShipWidgetItem* item = new NormalShipWidgetItem(ship_name + "; Health: " + health, ui->shipListWidget);
+                    item->setShipForWidgetItem(ships[i]);
+                    ui->shipListWidget->addItem(item);
+                }
             } else {
-                item->setTextColor(QColor("red"));
+                AbandonShipWidgetItem* item = new AbandonShipWidgetItem(ship_name + "; Health: " + health, ui->shipListWidget);
+                item->setShipForWidgetItem(ships[i]);
+                ui->shipListWidget->addItem(item);
             }
-            item->setShipForWidgetItem(ships[i]);
-            ui->shipListWidget->addItem(item);
         }
 }
 
@@ -114,6 +122,12 @@ void MainWindow::initPlayerShip()
     galaxy_scene->addItem(_player_ship->get_ui_item());   
     connect(_player_ship, SIGNAL(healthChanged(int)), this, SLOT(on_player_health_changed(int)));
     connect(_player_ship, SIGNAL(loseAllHealth()), this, SLOT(on_player_lose_all_health()));
+
+    // When window launches, non-playable ships should be moved so that they lose health
+    // => able to save. Otherwise, user must press "End turn" before they actually play anything.
+    gameRunner->createActions();
+    gameRunner->doActions();
+    //
 }
 
 void MainWindow::setStarSystemLabel(std::string starSystemName)
@@ -121,7 +135,12 @@ void MainWindow::setStarSystemLabel(std::string starSystemName)
     ui->starSystemNameLabel->setText(QString::fromStdString(
                 "You are at star system: "
                 + starSystemName
-    ));
+                                         ));
+}
+
+void MainWindow::setCurrentStarSystemNameForPlayableShip(std::string system_name)
+{
+    current_system_name = system_name;
 }
 
 
@@ -152,6 +171,8 @@ void MainWindow::on_endTurnBtn_clicked()
 {
     gameRunner->createActions();
     gameRunner->doActions();
+    Common::IGalaxy::ShipVector ships_ = galaxy->getShipsInStarSystem(current_system_name);
+    updateListWidget(ships_);
 }
 
 void MainWindow::on_viewCreditsBtn_clicked()
