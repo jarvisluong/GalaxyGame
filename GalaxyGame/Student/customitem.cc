@@ -9,32 +9,32 @@ CustomItem::CustomItem(QPixmap pixmap_, Common::Point location): QGraphicsPixmap
 
 }
 
-void CustomItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
-{
-     Common::IGalaxy::ShipVector shipVector = galaxy->getShipsInStarSystem(name);
-     window->updateListWidget(shipVector);
-     window->updatePlayerShipLocation(_location);
-     window->setStarSystemLabel(name);
-}
+//void CustomItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+//{
+//     Common::IGalaxy::ShipVector shipVector = galaxy->getShipsInStarSystem(name);
+//     window->updateListWidget(shipVector);
+//     window->updatePlayerShipLocation(_location);
+//     window->setStarSystemLabel(name);
+//}
 
-void CustomItem::setGalaxyForStarSystemItem(Student::Galaxy *galaxy_)
+void CustomItem::setGalaxyForItem(Student::Galaxy *galaxy_)
 {
     assert_not_null(galaxy_);
     galaxy = galaxy_;
 }
 
-void CustomItem::setNameForStarSystemItem(std::string name_)
+void CustomItem::setNameForItem(std::string name_)
 {
     name = name_;
 }
 
-void CustomItem::setMainWindowForStarSystemItem(MainWindow *w_)
+void CustomItem::setMainWindowForItem(MainWindow *w_)
 {
     assert_not_null(w_);
     window = w_;
 }
 
-void CustomItem::setLocationForStarSystemItem(Common::Point location)
+void CustomItem::setLocationForItem(Common::Point location)
 {
     _location = location;
 }
