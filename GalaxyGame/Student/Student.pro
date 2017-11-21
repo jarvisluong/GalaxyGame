@@ -25,7 +25,8 @@ SOURCES += \
     customitem.cc \
     customlistwidgetitem.cc \
     playership.cpp \
-    buyhealthdialog.cc
+    buyhealthdialog.cc \
+    starsystemitem.cc
 
 HEADERS  += \
     galaxy.hh \
@@ -39,7 +40,8 @@ HEADERS  += \
     customlistwidgetitem.hh \
     utilities.hh \
     playership.h \
-    buyhealthdialog.hh
+    buyhealthdialog.hh \
+    starsystemitem.hh
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course
