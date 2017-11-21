@@ -18,21 +18,21 @@ public:
      CustomItem(QPixmap pixmap_, Common::Point location = Common::Point(0,0));
 
     /*!
-     * \brief setGalaxyForStarSystemItem Sets galaxy property for the class.
+     * \brief setGalaxyForItem Sets galaxy property for the class.
      * \pre galaxy_ must not be a NULL pointer.
      * \param galaxy_ The pointer to be set.
      */
     void setGalaxyForItem(Student::Galaxy* galaxy_);
 
     /*!
-     * \brief setMainWindowForStarSystemItem Sets the window property for the class.
+     * \brief setMainWindowForItem Sets the window property for the class.
      * \pre w_ must not be a NULL pointer.
      * \param w_ The window to be set.
      */
     void setMainWindowForItem(MainWindow* w_);
 
     /*!
-     * \brief setNameForStarSystemItem Sets the name property for the class.
+     * \brief setNameForItem Sets the name property for the class.
      * \param name_ The name to be set.
      */
     void setNameForItem(std::string name_);
@@ -51,7 +51,7 @@ public:
 
 protected:
     /*!
-     * \brief mousePressEvent Handlers the event when user clicks on a starSystem
+     * \brief mousePressEvent Handlers the event when user clicks on a item
      * \param event
      */
     virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) = 0;
