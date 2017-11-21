@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->authorLabel->setText(Constants::author);
     ui->versionLabel->setText(Constants::version);
     ui->shipListWidget->setSelectionMode(QAbstractItemView::NoSelection);
-
+    ui->buyHealthBtn->setEnabled(false);
     galaxy_scene = new QGraphicsScene(Constants::sceneRect);
     galaxy_scene->setBackgroundBrush(QBrush(Qt::black, Qt::SolidPattern));
     ui->galaxyView->setScene(galaxy_scene);
@@ -173,9 +173,7 @@ void MainWindow::on_saveSelectedShipsBtn_clicked()
             QString health = QString::number(max_health);
             customItem->setText(name + "; Health: " + health);
             customItem->setTextColor("green");
-            customItem->setFlags(item->flags());
             customItem->setData(10, QVariant());
-
         }
     }
 
@@ -193,6 +191,11 @@ void MainWindow::on_player_health_changed(int new_health)
 {
     qDebug() << "updaing health" << new_health << endl;
     ui->healthLCDNumber->display(new_health);
+    if(_player_ship->getHealth() >= 50) {
+        ui->buyHealthBtn->setEnabled(false);
+    } else {
+        ui->buyHealthBtn->setEnabled(true);
+    }
 }
 
 void MainWindow::on_player_lose_all_health()
@@ -220,6 +223,6 @@ void MainWindow::on_buy_health_dialog_button_clicked()
 
 void MainWindow::on_buyHealthBtn_clicked()
 {
-    buy_dialog->setCreditsForText(stat_info->getCreditBalance());
+    buy_dialog->setCreditsForText(stat_info->getCreditBalance(), _player_ship->getHealth());
     buy_dialog->show();
 }
