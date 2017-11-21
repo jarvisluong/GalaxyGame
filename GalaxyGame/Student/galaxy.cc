@@ -83,6 +83,9 @@ Common::IGalaxy::ShipVector Student::Galaxy::getShipsInStarSystem(std::string na
     Common::IGalaxy::ShipVector _ships_in_star_system;
     auto iter_find_system_by_name = getStarSystemByName(name);
     for(auto iter_ship: _ships_in_galaxy) {
+        if (iter_ship->getLocation() == NULL) {
+            continue;
+        }
         if(iter_ship->getLocation()->getCoordinates() == iter_find_system_by_name->getCoordinates()) {
             _ships_in_star_system.push_back(iter_ship);
         }

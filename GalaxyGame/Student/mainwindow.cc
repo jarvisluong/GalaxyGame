@@ -127,7 +127,7 @@ void MainWindow::addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> 
     transformCoordinates(x, y);
     item->setPos(x, y);
     item->setFlag(QGraphicsItem::ItemIsSelectable);
-    item->setGalaxyForStarSystemItem(Student::Galaxy* galaxy);
+    item->setGalaxyForStarSystemItem(galaxy);
     item->setMainWindowForStarSystemItem(this);
     galaxy_scene->addItem(item);
 }
