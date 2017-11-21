@@ -23,6 +23,7 @@ int BuyHealthDialog::getNumberOfHealthToBuy()
 
 void BuyHealthDialog::setCreditsForText(int credits_, int health_)
 {
+    ui->notificationLabel->hide();
     ui->credits_price_label->setText("You have " + QString::number(credits_) + " credits. Price: 5 credits for 1 health.");
     ui->healthspinBox->setMaximum(std::min(credits_ / 5, Constants::playerMaxHealth - health_));
     if(credits_ / 5 > Constants::playerMaxHealth - health_) {
