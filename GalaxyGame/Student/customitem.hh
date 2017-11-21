@@ -1,7 +1,6 @@
 #ifndef CUSTOMITEM_HH
 #define CUSTOMITEM_HH
 
-#include "galaxy.hh"
 #include "mainwindow.hh"
 #include "point.hh"
 #include <QGraphicsPixmapItem>
@@ -16,13 +15,6 @@ public:
      * \param location The location of the item
      */
      CustomItem(QPixmap pixmap_, Common::Point location = Common::Point(0,0));
-
-    /*!
-     * \brief setGalaxyForItem Sets galaxy property for the class.
-     * \pre galaxy_ must not be a NULL pointer.
-     * \param galaxy_ The pointer to be set.
-     */
-    void setGalaxyForItem(Student::Galaxy* galaxy_);
 
     /*!
      * \brief setMainWindowForItem Sets the window property for the class.
@@ -50,14 +42,8 @@ public:
     Common::Point getLocation();
 
 protected:
-    /*!
-     * \brief mousePressEvent Handlers the event when user clicks on a item
-     * \param event
-     */
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent* event) = 0;
     std::string name;
     Common::Point _location;
-    Student::Galaxy* galaxy;
     MainWindow* window;
 };
 

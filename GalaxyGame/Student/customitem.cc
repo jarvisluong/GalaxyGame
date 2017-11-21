@@ -9,20 +9,6 @@ CustomItem::CustomItem(QPixmap pixmap_, Common::Point location): QGraphicsPixmap
 
 }
 
-//void CustomItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
-//{
-//     Common::IGalaxy::ShipVector shipVector = galaxy->getShipsInStarSystem(name);
-//     window->updateListWidget(shipVector);
-//     window->updatePlayerShipLocation(_location);
-//     window->setStarSystemLabel(name);
-//}
-
-void CustomItem::setGalaxyForItem(Student::Galaxy *galaxy_)
-{
-    assert_not_null(galaxy_);
-    galaxy = galaxy_;
-}
-
 void CustomItem::setNameForItem(std::string name_)
 {
     name = name_;
