@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include "constants.hh"
 #include "creditsdialog.h"
-#include "customitem.hh"
+#include "starsystemitem.hh"
 #include "customlistwidgetitem.hh"
 #include "utilities.hh"
 #include "objectnotfoundexception.hh"
@@ -135,16 +135,16 @@ MainWindow::~MainWindow()
 void MainWindow::addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> starSystem)
 {
     assert_not_null(starSystem.get());
-    CustomItem* item = new CustomItem(QPixmap::fromImage(star_image));
-    item->setNameForStarSystemItem(starSystem->getName());
-    item->setLocationForStarSystemItem(starSystem->getCoordinates());
+    StarSystemItem* item = new StarSystemItem(QPixmap::fromImage(star_image));
+    item->setNameForItem(starSystem->getName());
+    item->setLocationForItem(starSystem->getCoordinates());
     int x = starSystem->getCoordinates().x;
     int y = starSystem->getCoordinates().y;
     transformCoordinates(x, y);
     item->setPos(x, y);
     item->setFlag(QGraphicsItem::ItemIsSelectable);
-    item->setGalaxyForStarSystemItem(galaxy);
-    item->setMainWindowForStarSystemItem(this);
+    item->setGalaxyForItem(galaxy);
+    item->setMainWindowForItem(this);
     galaxy_scene->addItem(item);
 }
 
