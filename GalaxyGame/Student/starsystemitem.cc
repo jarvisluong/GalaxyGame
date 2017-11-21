@@ -12,4 +12,5 @@ void StarSystemItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     window->updateListWidget(shipVector);
     window->updatePlayerShipLocation(_location);
     window->setStarSystemLabel(name);
+    window->setCurrentStarSystemNameForPlayableShip(name);
 }
