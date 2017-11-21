@@ -72,7 +72,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Maximum health is 50. Buy x healths is enough.</string>
+    <string/>
    </property>
   </widget>
  </widget>
