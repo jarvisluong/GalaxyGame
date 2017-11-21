@@ -14,3 +14,9 @@ void StarSystemItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     window->setStarSystemLabel(name);
     window->setCurrentStarSystemNameForPlayableShip(name);
 }
+
+void StarSystemItem::setGalaxyForItem(Student::Galaxy *galaxy_)
+{
+    assert_not_null(galaxy_);
+    galaxy = galaxy_;
+}
