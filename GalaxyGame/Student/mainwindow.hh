@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include "ieventhandler.hh"
+#include "eventhandler.hh"
 #include "igamerunner.hh"
 #include "galaxy.hh"
 #include "playership.h"
@@ -59,6 +60,8 @@ public:
     void setStarSystemLabel(std::string starSystemName);
 
     void setCurrentStarSystemNameForPlayableShip(std::string system_name);
+
+    void addNonPlayShipToGalaxyScene(std::shared_ptr<Common::Ship> shipAdded);
     ~MainWindow();
 public slots:
     /*!
@@ -92,6 +95,7 @@ private:
     Student::Statistics* stat_info;
     BuyHealthDialog* buy_dialog;
     std::string current_system_name;
+
 };
 
 #endif // MAINWINDOW_H

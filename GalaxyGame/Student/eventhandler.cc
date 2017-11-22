@@ -1,6 +1,6 @@
 #include "eventhandler.hh"
 #include "ship.hh"
-
+#include "mainwindow.hh"
 Student::EventHandler::EventHandler()
 {
 
@@ -49,4 +49,9 @@ void Student::EventHandler::distressOff(std::shared_ptr<Common::Ship> ship)
 void Student::EventHandler::shipAbandoned(std::shared_ptr<Common::Ship> ship)
 {
 
+}
+
+void Student::EventHandler::setMainWindow(Student::MainWindow *w_)
+{
+    window = w_;
 }

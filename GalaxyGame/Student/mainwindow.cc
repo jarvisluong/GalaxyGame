@@ -143,6 +143,11 @@ void MainWindow::setCurrentStarSystemNameForPlayableShip(std::string system_name
     current_system_name = system_name;
 }
 
+void MainWindow::addNonPlayShipToGalaxyScene(std::shared_ptr<Common::Ship> shipAdded)
+{
+
+}
+
 
 MainWindow::~MainWindow()
 {
