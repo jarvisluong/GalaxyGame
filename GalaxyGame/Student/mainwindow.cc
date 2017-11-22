@@ -175,8 +175,10 @@ void MainWindow::on_endTurnBtn_clicked()
 {
     gameRunner->createActions();
     gameRunner->doActions();
-    Common::IGalaxy::ShipVector ships_ = galaxy->getShipsInStarSystem(current_system_name);
-    updateListWidget(ships_);
+    if(current_system_name != "") {
+        Common::IGalaxy::ShipVector ships_ = galaxy->getShipsInStarSystem(current_system_name);
+        updateListWidget(ships_);
+    }
 }
 
 void MainWindow::on_viewCreditsBtn_clicked()
