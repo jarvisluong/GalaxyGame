@@ -1,6 +1,5 @@
 #include "eventhandler.hh"
 #include "ship.hh"
-#include "mainwindow.hh"
 Student::EventHandler::EventHandler()
 {
 
@@ -23,8 +22,8 @@ void Student::EventHandler::shipRemoved(std::shared_ptr<Common::Ship> ship)
 
 void Student::EventHandler::shipRelocated(std::shared_ptr<Common::Ship> ship, std::shared_ptr<Common::StarSystem> starSystem)
 {
-
 }
+
 
 void Student::EventHandler::shipMoved(std::shared_ptr<Common::Ship> ship, Common::Point origin, Common::Point target)
 {
@@ -51,7 +50,3 @@ void Student::EventHandler::shipAbandoned(std::shared_ptr<Common::Ship> ship)
 
 }
 
-void Student::EventHandler::setMainWindow(Student::MainWindow *w_)
-{
-    window = w_;
-}

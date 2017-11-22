@@ -6,7 +6,6 @@
 #include <QObject>
 namespace Student {
 // TODO: ask TA why signal X(Common::Point) is not compiled?
-class MainWindow;
 class EventHandler: public Common::IEventHandler
 {
 public:
@@ -23,9 +22,6 @@ public:
     void distressOn(std::shared_ptr<Common::Ship> ship);
     void distressOff(std::shared_ptr<Common::Ship> ship);
     void shipAbandoned(std::shared_ptr<Common::Ship> ship);
-    void setMainWindow(MainWindow* w_);
-private:
-    MainWindow* window;
 
 };
 }
