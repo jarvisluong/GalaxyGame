@@ -29,8 +29,7 @@ SOURCES += \
     starsystemitem.cc \
     fullhealthshipwidgetitem.cc \
     normalshipwidgetitem.cc \
-    abandonshipwidgetitem.cc \
-    shipitem.cc
+    abandonshipwidgetitem.cc
 
 HEADERS  += \
     galaxy.hh \
@@ -48,8 +47,7 @@ HEADERS  += \
     starsystemitem.hh \
     fullhealthshipwidgetitem.hh \
     normalshipwidgetitem.hh \
-    abandonshipwidgetitem.hh \
-    shipitem.hh
+    abandonshipwidgetitem.hh
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course

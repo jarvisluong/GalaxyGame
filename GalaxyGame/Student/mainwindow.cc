@@ -8,7 +8,6 @@
 #include "normalshipwidgetitem.hh"
 #include "abandonshipwidgetitem.hh"
 #include "fullhealthshipwidgetitem.hh"
-#include "shipitem.hh"
 #include "starsystemitem.hh"
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
