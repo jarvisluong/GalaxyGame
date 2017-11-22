@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include "ieventhandler.hh"
-#include "eventhandler.hh"
 #include "igamerunner.hh"
 #include "galaxy.hh"
 #include "playership.h"
@@ -60,8 +59,6 @@ public:
     void setStarSystemLabel(std::string starSystemName);
 
     void setCurrentStarSystemNameForPlayableShip(std::string system_name);
-
-    void addNonPlayShipToGalaxyScene(std::shared_ptr<Common::Ship> shipAdded);
     ~MainWindow();
 public slots:
     /*!

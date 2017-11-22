@@ -8,6 +8,7 @@
 #include "normalshipwidgetitem.hh"
 #include "abandonshipwidgetitem.hh"
 #include "fullhealthshipwidgetitem.hh"
+#include "shipitem.hh"
 #include "starsystemitem.hh"
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
@@ -37,6 +38,8 @@ MainWindow::MainWindow(QWidget *parent) :
     star_image.load("Assets/star.png");
     star_image = star_image.scaled(20, 20);
 
+    ship_image.load("Assets/spaceship.png");
+    ship_image = ship_image.scaled(20, 20);
     connect(ui->viewCreditsBtn, SIGNAL(clicked(bool)), this, SLOT(on_viewCreditsBtn_clicked()));
 
     stat_info = new Student::Statistics();
@@ -143,12 +146,6 @@ void MainWindow::setCurrentStarSystemNameForPlayableShip(std::string system_name
     current_system_name = system_name;
 }
 
-void MainWindow::addNonPlayShipToGalaxyScene(std::shared_ptr<Common::Ship> shipAdded)
-{
-
-}
-
-
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -169,6 +166,9 @@ void MainWindow::addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem> 
     item->setFlag(QGraphicsItem::ItemIsSelectable);
     item->setGalaxyForItem(galaxy);
     item->setMainWindowForItem(this);
+    QString toolText = "Id: " + QString::number(starSystem->getId()) + "<br>" + "Name: " + QString::fromStdString(starSystem->getName()) + "<br>" +
+            "Population: " + QString::number(starSystem->getPopulation());
+    item->setToolTip(toolText);
     galaxy_scene->addItem(item);
 }
 
