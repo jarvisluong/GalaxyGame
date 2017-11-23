@@ -116,10 +116,11 @@ void MainWindow::initPlayerShip()
     ui->healthLCDNumber->display(50);
     QGraphicsPixmapItem *ui_item = new QGraphicsPixmapItem(QPixmap::fromImage(ship_image));
     ui_item->setPos(500, 500);
-    setStarSystemLabel(galaxy
-                ->getStarSystemByLocation(Constants::initialPlayerLocation)
-                ->getName()
-    );
+    std::string current_star_system_name = galaxy
+            ->getStarSystemByLocation(Constants::initialPlayerLocation)
+            ->getName();
+    setCurrentStarSystemNameForPlayableShip(current_star_system_name);
+    setStarSystemLabel(current_star_system_name);
     _player_ship->set_ui_item(ui_item);
     galaxy_scene->addItem(_player_ship->get_ui_item());   
     connect(_player_ship, SIGNAL(healthChanged(int)), this, SLOT(on_player_health_changed(int)));
