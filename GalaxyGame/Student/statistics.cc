@@ -89,6 +89,16 @@ int Student::Statistics::getCreditBalance() const
     return _credits;
 }
 
+void Student::Statistics::reset()
+{
+    _number_of_lost_ships = 0;
+    _number_of_saved_ships = 0;
+    _points = 0;
+    _credits = 0;
+    emit on_point_changed(0);
+    emit on_credit_changed(10);
+}
+
 void Student::Statistics::invariant() const
 {
     Q_ASSERT(_points >= 0);

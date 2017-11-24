@@ -63,6 +63,8 @@ public:
      */
     QGraphicsPixmapItem *get_ui_item();
 
+    void resetToInitialLocation();
+
 signals:
     void healthChanged(int new_health);
     void loseAllHealth();

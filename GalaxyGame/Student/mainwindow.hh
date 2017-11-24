@@ -7,6 +7,8 @@
 #include "playership.h"
 #include "statistics.hh"
 #include "buyhealthdialog.hh"
+#include "gameoverdialog.hh"
+#include "dialog.hh"
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QImage>
@@ -59,6 +61,9 @@ public:
     void setStarSystemLabel(std::string starSystemName);
 
     void setCurrentStarSystemNameForPlayableShip(std::string system_name);
+
+    void user_wants_to_end_game();
+    void user_wants_to_continue_game();
     ~MainWindow();
 public slots:
     /*!
@@ -92,7 +97,7 @@ private:
     Student::Statistics* stat_info;
     BuyHealthDialog* buy_dialog;
     std::string current_system_name = "";
-
+//    GameOverDialog* overDialog;
 };
 
 #endif // MAINWINDOW_H

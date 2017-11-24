@@ -39,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ship_image.load("Assets/spaceship.png");
     ship_image = ship_image.scaled(20, 20);
-    connect(ui->viewCreditsBtn, SIGNAL(clicked(bool)), this, SLOT(on_viewCreditsBtn_clicked()));
+//    connect(ui->viewCreditsBtn, SIGNAL(clicked(bool)), this, SLOT(on_viewCreditsBtn_clicked()));
 
     stat_info = new Student::Statistics();
     connect(stat_info, SIGNAL(on_point_changed(uint)), this, SLOT(on_statistic_point_changed(uint)));
@@ -104,8 +104,8 @@ void MainWindow::updateListWidget(Common::IGalaxy::ShipVector ships)
 
 void MainWindow::updatePlayerShipLocation(Common::Point new_location)
 {
-    _player_ship->goToLocation(new_location);
-    qDebug() << _player_ship->getLocation().x << ' ' << _player_ship->getLocation().y << endl;
+        _player_ship->goToLocation(new_location);
+        qDebug() << _player_ship->getLocation().x << ' ' << _player_ship->getLocation().y << endl;
 }
 
 void MainWindow::initPlayerShip()
@@ -135,15 +135,15 @@ void MainWindow::initPlayerShip()
 
 void MainWindow::setStarSystemLabel(std::string starSystemName)
 {
-    ui->starSystemNameLabel->setText(QString::fromStdString(
-                "You are at star system: "
-                + starSystemName
-                                         ));
+        ui->starSystemNameLabel->setText(QString::fromStdString(
+                    "You are at star system: "
+                    + starSystemName
+                                             ));
 }
 
 void MainWindow::setCurrentStarSystemNameForPlayableShip(std::string system_name)
 {
-    current_system_name = system_name;
+        current_system_name = system_name;
 }
 
 MainWindow::~MainWindow()
@@ -244,7 +244,13 @@ void MainWindow::on_player_health_changed(int new_health)
 void MainWindow::on_player_lose_all_health()
 {
     qDebug() << "You lose all health" << endl;
-    ui->healthLCDNumber->display(0);
+    ui->healthLCDNumber->display(0); 
+    GameOverDialog* overDialog = new GameOverDialog;
+    if(overDialog->exec()) {
+        this->user_wants_to_continue_game();
+    } else {
+        this->user_wants_to_end_game();
+    }
 }
 
 void MainWindow::on_statistic_point_changed(unsigned new_point)
@@ -268,4 +274,29 @@ void MainWindow::on_buyHealthBtn_clicked()
 {
     buy_dialog->setCreditsForText(stat_info->getCreditBalance(), _player_ship->getHealth());
     buy_dialog->show();
+}
+
+void MainWindow::user_wants_to_end_game()
+{
+    this->close();
+}
+
+void MainWindow::user_wants_to_continue_game()
+{
+    stat_info->reset();
+    std::shared_ptr<Common::IGalaxy::ShipVector> _ships = galaxy->getShips();
+    Common::IGalaxy::ShipVector ships = *_ships.get();
+    for(auto iter: ships) {
+        galaxy->removeShip(iter);
+    }
+    _player_ship->increaseHealth(50);
+    ui->shipListWidget->clear();
+    current_system_name = galaxy->getStarSystemByLocation(Constants::initialPlayerLocation)->getName();
+    setStarSystemLabel(current_system_name);
+    _player_ship->resetToInitialLocation();
+    Dialog reConfigDialog;
+    if(reConfigDialog.exec()) {
+        gameRunner->spawnShips(reConfigDialog.getNumberOfShips());
+    }
+
 }
