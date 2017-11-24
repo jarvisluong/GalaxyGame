@@ -6,7 +6,12 @@ build_game:
     - export WORKDIR=$PWD
     - cd GalaxyGame
     - qmake
-    - make install INSTALL_ROOT=$WORKDIR/build
+    - cd Course/ && qmake -o Makefile && make -f Makefile qmake_all && cd ..
+    - cd Student/ && qmake -o Makefile && make -f Makefile qmake_all && cd ..
+    - cd CourseTests/ && qmake -o Makefile && make -f Makefile qmake_all && cd ..
+    - cd Galaxy/ && qmake -o Makefile && make -f Makefile qmake_all && cd ..
+    - cd StudentTests/ && qmake -o Makefile && make -f Makefile qmake_all && cd ..
+    - cd Statistics/ && qmake -o Makefile && make -f Makefile qmake_all && cd ..
   tags:
     - qt
 
