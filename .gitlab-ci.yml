@@ -4,7 +4,7 @@ before_script:
 build_game:
   script:
     - echo "Build"
-    - qmake --help
+    - ls -al
   tags:
     - qt
 
