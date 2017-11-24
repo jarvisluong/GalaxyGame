@@ -6,8 +6,6 @@
 #include "ieventhandler.hh"
 #include "point.hh"
 #include "constants.hh"
-#include "playership.h"
-//#include "mainwindow.hh"
 #include <QObject>
 namespace Student {
 class MainWindow;
