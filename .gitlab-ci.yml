@@ -2,7 +2,9 @@ before_script:
     - echo "Before"
 
 build_game:
+  script:
     - echo "Build"
 
 test_game:
+  script:
     - echo "Test"
