@@ -1,8 +1,8 @@
 before_script:
     - echo "Before"
 
-build:
+build_game:
     - echo "Build"
 
-test:
+test_game:
     - echo "Test"
