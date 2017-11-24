@@ -6,13 +6,9 @@ build_game:
     - export WORKDIR=$PWD
     - cd GalaxyGame/
     - qmake
-    - cd Course/ && qmake -o Makefile && make -f Makefile qmake_all && cd ../
-    - cd Student/ && qmake -o Makefile && make -f Makefile qmake_all && cd ../
-    - cd CourseTests/ && qmake -o Makefile && make -f Makefile qmake_all && cd ../
-    - cd Galaxy/ && qmake -o Makefile && make -f Makefile qmake_all && cd ../
-    - cd StudentTests/ && qmake -o Makefile && make -f Makefile qmake_all && cd ../
-    - cd Statistics/ && qmake -o Makefile && make -f Makefile qmake_all && cd ../
-    - cd ../ & pwd
+    - cd CourseTests/ && qmake -o Makefile && make -f Makefile qmake_all && cd ..
+    - cd StudentTests/ && qmake -o Makefile && make -f Makefile qmake_all && cd ..
+    - cd .. && pwd
   tags:
     - qt
 
