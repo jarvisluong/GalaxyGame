@@ -1,19 +1,16 @@
 before_script:
-    - echo "Before"
-
-build_game:
-  script:
-    - export WORKDIR=$PWD
     - cd GalaxyGame/
-    - qmake
-    - cd CourseTests/ && qmake -o Makefile && make -f Makefile qmake_all && cd ..
-    - cd StudentTests/ && qmake -o Makefile && make -f Makefile qmake_all && cd ..
-    - cd .. && pwd
+
+course_tests:
+  script:
+    - cd CourseTests/ && qmake -o Makefile && make -f Makefile qmake_all
+    - cd Galaxy/ && ./galaxytest
   tags:
     - qt
 
-test_game:
+student_tests:
   script:
-    - echo "Test"
+    - cd StudentTests/ && qmake -o Makefile && make -f Makefile qmake_all
+    - cd Statistics/ && ./statisticstest
   tags:
     - qt
