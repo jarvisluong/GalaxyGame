@@ -1,8 +1,6 @@
 #include "galaxy.hh"
 #include "objectnotfoundexception.hh"
 #include "stateexception.hh"
-#include "mainwindow.hh"
-#include "playership.h"
 #include <stdlib.h>
 #include <algorithm>
 #include <QDebug>
