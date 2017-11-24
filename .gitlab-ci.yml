@@ -11,4 +11,4 @@ test_game:
   script:
     - echo "Test"
   tags:
-    -qt
+    - qt
