@@ -4,7 +4,11 @@ before_script:
 build_game:
   script:
     - echo "Build"
+  tags:
+    - qt
 
 test_game:
   script:
     - echo "Test"
+  tags:
+    -qt
