@@ -12,7 +12,7 @@ build_game:
     - cd Galaxy/ && qmake -o Makefile && make -f Makefile qmake_all && cd ..
     - cd StudentTests/ && qmake -o Makefile && make -f Makefile qmake_all && cd ..
     - cd Statistics/ && qmake -o Makefile && make -f Makefile qmake_all && cd ..
-    - pwd
+    - cd .. & pwd
   tags:
     - qt
 
