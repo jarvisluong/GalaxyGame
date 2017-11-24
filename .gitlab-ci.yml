@@ -3,8 +3,10 @@ before_script:
 
 build_game:
   script:
-    - echo "Build"
-    - ls -al
+    - export WORKDIR=$PWD
+    - cd GalaxyGame
+    - qmake
+    - make install INSTALL_ROOT=$WORKDIR/build
   tags:
     - qt
 
