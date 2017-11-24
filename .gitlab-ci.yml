@@ -1,6 +1,13 @@
 before_script:
     - cd GalaxyGame/
 
+course_tests:
+  script:
+    - cd CourseTests/ && qmake -o Makefile && make -f Makefile
+    - cd Galaxy/ && ./galaxytest
+  tags:
+    - qt
+
 student_tests:
   script:
     - cd StudentTests/ && qmake -o Makefile && make -f Makefile

@@ -13,7 +13,6 @@ CONFIG   += console
 CONFIG   -= app_bundle
 CONFIG += c++14
 TEMPLATE = app
-QT += core gui widgets
 
 SOURCES += galaxytest.cc \
     ../../Student/galaxy.cc \
