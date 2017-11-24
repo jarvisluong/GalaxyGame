@@ -1,6 +1,5 @@
 #include "mainwindow.hh"
 #include "ui_mainwindow.h"
-#include "constants.hh"
 #include "creditsdialog.h"
 #include "customlistwidgetitem.hh"
 #include "utilities.hh"
@@ -9,6 +8,7 @@
 #include "abandonshipwidgetitem.hh"
 #include "fullhealthshipwidgetitem.hh"
 #include "starsystemitem.hh"
+#include "highscoresdialog.hh"
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #include <QPixmap>
@@ -48,6 +48,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     buy_dialog = new BuyHealthDialog(10);
     connect(buy_dialog, SIGNAL(on_buy_btn_clicked()), this, SLOT(on_buy_health_dialog_button_clicked()));
+
+    QFile file(Constants::directory);
+    if(!file.exists()) {
+        createTop10File();
+    }
 }
 
 void MainWindow::setEventHandler(std::shared_ptr<Common::IEventHandler> handler_)
@@ -105,7 +110,7 @@ void MainWindow::updateListWidget(Common::IGalaxy::ShipVector ships)
 void MainWindow::updatePlayerShipLocation(Common::Point new_location)
 {
         _player_ship->goToLocation(new_location);
-        qDebug() << _player_ship->getLocation().x << ' ' << _player_ship->getLocation().y << endl;
+       //qDebug() << _player_ship->getLocation().x << ' ' << _player_ship->getLocation().y << endl;
 }
 
 void MainWindow::initPlayerShip()
@@ -196,6 +201,43 @@ void MainWindow::transformCoordinates(int& x, int& y)
     x += 500; y += 500;
 }
 
+void MainWindow::createTop10File() {
+    writeToTop10File("for_setup");
+}
+
+void MainWindow::writeToTop10File(QString pointToAppend)
+{
+    QFile highScoresFile(Constants::directory);
+    std::vector<QString> testExistsElement = readFromTop10File();
+    for(int i = 0; i < testExistsElement.size(); i++) {
+        if(testExistsElement[i] == pointToAppend)
+            return;
+    }
+    pointToAppend += "\n";
+    if(highScoresFile.open(QFile::WriteOnly | QIODevice::Append)) {
+        QTextStream out(&highScoresFile);
+        out << pointToAppend;
+    }
+    highScoresFile.flush();
+    highScoresFile.close();
+}
+
+std::vector<QString> MainWindow::readFromTop10File()
+{
+    std::vector<QString> _points;
+    QFile highScoresFile(Constants::directory);
+    if(highScoresFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream stream(&highScoresFile);
+        QString line;
+        do {
+            line = stream.readLine();
+            _points.push_back(line);
+        } while(!line.isNull());
+        highScoresFile.close();
+    }
+    return _points;
+}
+
 void MainWindow::on_saveSelectedShipsBtn_clicked()
 {
     // update points, credits, health of player-ship, health of saved ships
@@ -245,6 +287,7 @@ void MainWindow::on_player_lose_all_health()
 {
     qDebug() << "You lose all health" << endl;
     ui->healthLCDNumber->display(0); 
+    writeToTop10File(QString::number(stat_info->getPoints()));
     GameOverDialog* overDialog = new GameOverDialog;
     if(overDialog->exec()) {
         this->user_wants_to_continue_game();
@@ -289,14 +332,38 @@ void MainWindow::user_wants_to_continue_game()
     for(auto iter: ships) {
         galaxy->removeShip(iter);
     }
-    _player_ship->increaseHealth(50);
-    ui->shipListWidget->clear();
-    current_system_name = galaxy->getStarSystemByLocation(Constants::initialPlayerLocation)->getName();
-    setStarSystemLabel(current_system_name);
-    _player_ship->resetToInitialLocation();
     Dialog reConfigDialog;
     if(reConfigDialog.exec()) {
         gameRunner->spawnShips(reConfigDialog.getNumberOfShips());
+        _player_ship->increaseHealth(50);
+        ui->shipListWidget->clear();
+        std::shared_ptr<Common::StarSystem> star =  galaxy->getStarSystemByLocation(Constants::initialPlayerLocation);
+        updateListWidget(galaxy->getShipsInStarSystem(star->getName()));
+        current_system_name = star->getName();
+        setStarSystemLabel(current_system_name);
+        _player_ship->resetToInitialLocation();
     }
 
+}
+bool cmp(int i, int j) {
+    return i > j;
+}
+void MainWindow::on_highScoreBtn_clicked()
+{
+    QFile highScoresFile(Constants::directory);
+    HighScoresDialog* highScoreDialog = new HighScoresDialog;
+
+    std::vector<QString> points = readFromTop10File();
+    std::vector<int> ipoints;
+    for(int i = 0; i < points.size(); i++) {
+        int j = points[i].toInt();
+        if((j == 0 && points[i] == Constants::string0) || (j>0)) {
+            ipoints.push_back(j);
+        }
+    }
+    if(ipoints.size() > 0) {
+        std::sort(ipoints.begin(), ipoints.end(), cmp);
+    }
+    highScoreDialog->setInformationForDialog(ipoints);
+    highScoreDialog->exec();
 }

@@ -47,6 +47,14 @@ public:
      * \brief initialPlayerLocation is the initial location of the player in the galaxy
      */
     static const Common::Point initialPlayerLocation;
+
+    static const QString no_points_to_show;
+
+    static const QString your_top_10;
+
+    static const QString directory;
+
+    static const QString string0;
 };
 
 #endif // CONSTANTS_H
