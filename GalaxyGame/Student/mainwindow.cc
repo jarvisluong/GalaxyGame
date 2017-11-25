@@ -238,11 +238,38 @@ std::vector<QString> MainWindow::readFromTop10File()
     return _points;
 }
 
+QPair<bool, Common::IGalaxy::ShipVector> MainWindow::checkIfUserHasEnoughHealth()
+{
+    int totalHealthToSave = 0;
+    Common::IGalaxy::ShipVector ships;
+    for(int i = 0; i < ui->shipListWidget->count(); i++) {
+        QListWidgetItem* item = ui->shipListWidget->item(i);
+        CustomListWidgetItem* customItem = static_cast<CustomListWidgetItem*> (item);
+        if(customItem->checkState()) {
+            totalHealthToSave += customItem->getShipFromWidgetItem()->getEngine()->getMaxHealth()
+                               - customItem->getShipFromWidgetItem()->getEngine()->getHealth();
+            ships.push_back(customItem->getShipFromWidgetItem());
+        }
+    }
+    if(totalHealthToSave <= _player_ship->getHealth()) {
+        // a true return is enough in this case
+        return {true, {}};
+    }
+    return {false, ships};
+}
+
 void MainWindow::on_saveSelectedShipsBtn_clicked()
 {
     // update points, credits, health of player-ship, health of saved ships
     int tempPoint = 0, tempCredit = 0, tempMinusHealth = 0, numberOfSavedShips = 0;
     Common::IGalaxy::ShipVector ships_;
+    QPair<bool, Common::IGalaxy::ShipVector> p = checkIfUserHasEnoughHealth();
+    if(!p.first) {
+        NotEnoughHealthDialog* notEnoughHealth = new NotEnoughHealthDialog;
+        notEnoughHealth->updateListWidget(p.second);
+        notEnoughHealth->exec();
+        return;
+    }
     for(int i = 0; i < ui->shipListWidget->count(); i++) {
         QListWidgetItem* item = ui->shipListWidget->item(i);
         CustomListWidgetItem* customItem = static_cast<CustomListWidgetItem*> (item);

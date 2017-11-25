@@ -6,6 +6,7 @@ GameOverDialog::GameOverDialog(QWidget *parent) :
     ui(new Ui::GameOverDialog)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Game over!");
 }
 
 GameOverDialog::~GameOverDialog()

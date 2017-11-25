@@ -6,6 +6,7 @@ HighScoresDialog::HighScoresDialog(QWidget *parent) :
     ui(new Ui::HighScoresDialog)
 {
     ui->setupUi(this);
+    this->setWindowTitle("High Scores");
 }
 
 void HighScoresDialog::setInformationForDialog(std::vector<int> points)

@@ -7,6 +7,7 @@ BuyHealthDialog::BuyHealthDialog(unsigned credits_, QWidget *parent):
     ui(new Ui::BuyHealthDialog)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Buy Health");
     ui->healthspinBox->setMaximum(credits_ / 5);
     ui->credits_price_label->setText("You have " + QString::number(credits_) + " credits. Price: 5 credits for 1 health.");
 }

@@ -8,12 +8,14 @@
 #include "statistics.hh"
 #include "buyhealthdialog.hh"
 #include "gameoverdialog.hh"
-#include "dialog.hh"
+#include "configdialog.hh"
 #include "constants.hh"
+#include "notenoughhealthdialog.hh"
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QImage>
 #include <QFile>
+#include <QPair>
 namespace Ui {
 class MainWindow;
 }
@@ -102,7 +104,7 @@ private:
     void createTop10File();
     void writeToTop10File(QString pointToAppend);
     std::vector<QString> readFromTop10File();
-
+    QPair<bool, Common::IGalaxy::ShipVector> checkIfUserHasEnoughHealth();
 };
 
 #endif // MAINWINDOW_H
