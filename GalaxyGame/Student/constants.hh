@@ -13,6 +13,11 @@ public:
     Constants();
 
     /*!
+     * \brief restartGameCode is the exit code that is used for restart the game
+     */
+    static const int restartGameCode = 200;
+
+    /*!
      * \brief gameName is the name of the game. It will also be used as
      * the window title.
      */

@@ -24,8 +24,6 @@ public:
      void addCredits(unsigned amount);
      void reduceCredits(unsigned amount);
      int getCreditBalance() const;
-
-     void reset();
 signals:
      void on_point_changed(unsigned point_);
      void on_credit_changed(unsigned credit_);

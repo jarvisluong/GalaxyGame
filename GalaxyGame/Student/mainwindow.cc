@@ -321,29 +321,12 @@ void MainWindow::on_buyHealthBtn_clicked()
 
 void MainWindow::user_wants_to_end_game()
 {
-    this->close();
+    qApp->exit(0);
 }
 
 void MainWindow::user_wants_to_continue_game()
 {
-    stat_info->reset();
-    std::shared_ptr<Common::IGalaxy::ShipVector> _ships = galaxy->getShips();
-    Common::IGalaxy::ShipVector ships = *_ships.get();
-    for(auto iter: ships) {
-        galaxy->removeShip(iter);
-    }
-    Dialog reConfigDialog;
-    if(reConfigDialog.exec()) {
-        gameRunner->spawnShips(reConfigDialog.getNumberOfShips());
-        _player_ship->increaseHealth(50);
-        ui->shipListWidget->clear();
-        std::shared_ptr<Common::StarSystem> star =  galaxy->getStarSystemByLocation(Constants::initialPlayerLocation);
-        updateListWidget(galaxy->getShipsInStarSystem(star->getName()));
-        current_system_name = star->getName();
-        setStarSystemLabel(current_system_name);
-        _player_ship->resetToInitialLocation();
-    }
-
+    qApp->exit(200);
 }
 bool cmp(int i, int j) {
     return i > j;

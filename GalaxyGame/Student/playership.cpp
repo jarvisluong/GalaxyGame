@@ -68,11 +68,6 @@ QGraphicsPixmapItem *PlayerShip::get_ui_item()
     return ui_item;
 }
 
-void PlayerShip::resetToInitialLocation()
-{
-    ui_item->setPos(500, 500);
-}
-
 void PlayerShip::invariant()
 {
     Q_ASSERT(_health >= 0 && _health <= Constants::playerMaxHealth);
