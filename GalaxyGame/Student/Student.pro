@@ -31,7 +31,8 @@ SOURCES += \
     normalshipwidgetitem.cc \
     abandonshipwidgetitem.cc \
     gameoverdialog.cc \
-    highscoresdialog.cc
+    highscoresdialog.cc \
+    notenoughhealthdialog.cc
 
 HEADERS  += \
     galaxy.hh \
@@ -51,7 +52,8 @@ HEADERS  += \
     normalshipwidgetitem.hh \
     abandonshipwidgetitem.hh \
     gameoverdialog.hh \
-    highscoresdialog.hh
+    highscoresdialog.hh \
+    notenoughhealthdialog.hh
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course
@@ -92,4 +94,5 @@ FORMS += \
     creditsdialog.ui \
     buyhealthdialog.ui \
     gameoverdialog.ui \
-    highscoresdialog.ui
+    highscoresdialog.ui \
+    notenoughhealthdialog.ui
