@@ -4,7 +4,7 @@
 #include "utility.hh"
 #include "eventhandler.hh"
 #include "mainwindow.hh"
-#include "dialog.hh"
+#include "configdialog.hh"
 #include "constants.hh"
 #include <QApplication>
 #include <memory>
@@ -43,5 +43,5 @@ int main(int argc, char *argv[])
 
 
     } while (appExitCode == Constants::restartGameCode);
-    return 0;
+    return appExitCode;
 }

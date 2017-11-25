@@ -20,7 +20,6 @@ SOURCES += \
     statistics.cc \
     mainwindow.cc \
     constants.cc \
-    dialog.cc \
     creditsdialog.cpp \
     customitem.cc \
     customlistwidgetitem.cc \
@@ -32,7 +31,8 @@ SOURCES += \
     abandonshipwidgetitem.cc \
     gameoverdialog.cc \
     highscoresdialog.cc \
-    notenoughhealthdialog.cc
+    notenoughhealthdialog.cc \
+    configdialog.cc
 
 HEADERS  += \
     galaxy.hh \
@@ -40,7 +40,6 @@ HEADERS  += \
     statistics.hh \
     mainwindow.hh \
     constants.hh \
-    dialog.hh \
     creditsdialog.h \
     customitem.hh \
     customlistwidgetitem.hh \
@@ -53,7 +52,8 @@ HEADERS  += \
     abandonshipwidgetitem.hh \
     gameoverdialog.hh \
     highscoresdialog.hh \
-    notenoughhealthdialog.hh
+    notenoughhealthdialog.hh \
+    configdialog.hh
 
 INCLUDEPATH += $$PWD/../Course
 DEPENDPATH += $$PWD/../Course

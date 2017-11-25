@@ -7,6 +7,7 @@ CreditsDialog::CreditsDialog(QWidget *parent) :
     ui(new Ui::CreditsDialog)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Credits");
     ui->starImageCredit->setText(Constants::star_image_author);
 }
 

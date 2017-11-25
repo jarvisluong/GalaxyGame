@@ -8,7 +8,7 @@
 #include "statistics.hh"
 #include "buyhealthdialog.hh"
 #include "gameoverdialog.hh"
-#include "dialog.hh"
+#include "configdialog.hh"
 #include "constants.hh"
 #include "notenoughhealthdialog.hh"
 #include <QMainWindow>

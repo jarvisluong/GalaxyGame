@@ -1,4 +1,4 @@
-#include "dialog.hh"
+#include "configdialog.hh"
 #include "ui_dialog.h"
 #include <QString>
 Dialog::Dialog(QWidget *parent) :
@@ -6,6 +6,7 @@ Dialog::Dialog(QWidget *parent) :
     ui(new Ui::Dialog)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Configuration");
 }
 
 Dialog::~Dialog()

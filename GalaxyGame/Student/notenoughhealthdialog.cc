@@ -6,6 +6,7 @@ NotEnoughHealthDialog::NotEnoughHealthDialog(QWidget *parent) :
     ui(new Ui::NotEnoughHealthDialog)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Warning!");
 }
 
 NotEnoughHealthDialog::~NotEnoughHealthDialog()
