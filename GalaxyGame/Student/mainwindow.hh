@@ -7,14 +7,16 @@
 #include "playership.h"
 #include "statistics.hh"
 #include "buyhealthdialog.hh"
+#include "gameoverdialog.hh"
+#include "dialog.hh"
+#include "constants.hh"
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QImage>
-
+#include <QFile>
 namespace Ui {
 class MainWindow;
 }
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -59,6 +61,9 @@ public:
     void setStarSystemLabel(std::string starSystemName);
 
     void setCurrentStarSystemNameForPlayableShip(std::string system_name);
+
+    void user_wants_to_end_game();
+    void user_wants_to_continue_game();
     ~MainWindow();
 public slots:
     /*!
@@ -79,6 +84,8 @@ private slots:
     void on_buy_health_dialog_button_clicked();
     void on_buyHealthBtn_clicked();
 
+    void on_highScoreBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     Student::PlayerShip* _player_ship;
@@ -92,6 +99,9 @@ private:
     Student::Statistics* stat_info;
     BuyHealthDialog* buy_dialog;
     std::string current_system_name = "";
+    void createTop10File();
+    void writeToTop10File(QString pointToAppend);
+    std::vector<QString> readFromTop10File();
 
 };
 

@@ -15,9 +15,9 @@ void PlayerShip::goToLocation(Common::Point nextLocation)
 {
     double distance = nextLocation.distanceTo(_location);
     int health_to_decrease = (int)(distance / 2);
-    decreaseHealth(health_to_decrease);
     _location = nextLocation;
     ui_item->setPos(nextLocation.x * 21 + 500, nextLocation.y * 21 + 500);
+    decreaseHealth(health_to_decrease);
 }
 
 void PlayerShip::decreaseHealth(int amount)

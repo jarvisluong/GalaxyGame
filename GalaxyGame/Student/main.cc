@@ -5,6 +5,7 @@
 #include "eventhandler.hh"
 #include "mainwindow.hh"
 #include "dialog.hh"
+#include "constants.hh"
 #include <QApplication>
 #include <memory>
 #include <time.h>
@@ -14,29 +15,33 @@
 // Resolve now by static_cast- maybe not a good idea.
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
-
-    std::shared_ptr<Common::IEventHandler> handler = std::make_shared<Student::EventHandler>();
-    std::shared_ptr<Student::Galaxy> galaxy = std::make_shared<Student::Galaxy>();
-    MainWindow w;
-    w.setGalaxy(galaxy.get());
-    MainWindow::connect(galaxy.get(), SIGNAL(starSystemAddedAtCoordinates(std::shared_ptr<Common::StarSystem>)), &w, SLOT(addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem>)));
-    std::shared_ptr<Common::IGameRunner> gameRunner = Common::getGameRunner(galaxy, handler);
+    int appExitCode;
     Common::utilityInit(time(NULL));
+    do {
+        QApplication a(argc, argv);
 
-    w.setEventHandler(handler);
-    w.setGameRunner(gameRunner);
-    Dialog configWindow;
-    if(configWindow.exec()) {
-        w.getGameRunner()->spawnShips(configWindow.getNumberOfShips());
-        w.initPlayerShip();
-        w.show();
-    } else {
-        // If the user decides to close the configuration window
-        return 0;
-    }
-//    Student::EventHandler* student_handler = dynamic_cast<Student::EventHandler*>(handler.get());
+        std::shared_ptr<Common::IEventHandler> handler = std::make_shared<Student::EventHandler>();
+        std::shared_ptr<Student::Galaxy> galaxy = std::make_shared<Student::Galaxy>();
+        MainWindow w;
+        w.setGalaxy(galaxy.get());
+        MainWindow::connect(galaxy.get(), SIGNAL(starSystemAddedAtCoordinates(std::shared_ptr<Common::StarSystem>)), &w, SLOT(addStarSystemToGalaxyScene(std::shared_ptr<Common::StarSystem>)));
+        std::shared_ptr<Common::IGameRunner> gameRunner = Common::getGameRunner(galaxy, handler);
+
+        w.setEventHandler(handler);
+        w.setGameRunner(gameRunner);
+        Dialog configWindow;
+        if(configWindow.exec()) {
+            w.getGameRunner()->spawnShips(configWindow.getNumberOfShips());
+            w.initPlayerShip();
+            w.show();
+            appExitCode = a.exec();
+        } else {
+            // If the user decides to close the configuration window
+            appExitCode = 0;
+        }
+    //    Student::EventHandler* student_handler = dynamic_cast<Student::EventHandler*>(handler.get());
 
 
-    return a.exec();
+    } while (appExitCode == Constants::restartGameCode);
+    return 0;
 }

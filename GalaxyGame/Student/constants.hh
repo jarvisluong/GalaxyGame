@@ -13,6 +13,11 @@ public:
     Constants();
 
     /*!
+     * \brief restartGameCode is the exit code that is used for restart the game
+     */
+    static const int restartGameCode = 200;
+
+    /*!
      * \brief gameName is the name of the game. It will also be used as
      * the window title.
      */
@@ -47,6 +52,14 @@ public:
      * \brief initialPlayerLocation is the initial location of the player in the galaxy
      */
     static const Common::Point initialPlayerLocation;
+
+    static const QString no_points_to_show;
+
+    static const QString your_top_10;
+
+    static const QString directory;
+
+    static const QString string0;
 };
 
 #endif // CONSTANTS_H

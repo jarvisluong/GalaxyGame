@@ -10,9 +10,9 @@ void StarSystemItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     Common::IGalaxy::ShipVector shipVector = galaxy->getShipsInStarSystem(name);
     window->updateListWidget(shipVector);
-    window->updatePlayerShipLocation(_location);
     window->setStarSystemLabel(name);
     window->setCurrentStarSystemNameForPlayableShip(name);
+    window->updatePlayerShipLocation(_location);
 }
 
 void StarSystemItem::setGalaxyForItem(Student::Galaxy *galaxy_)
