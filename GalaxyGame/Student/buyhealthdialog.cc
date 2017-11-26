@@ -42,5 +42,6 @@ void BuyHealthDialog::on_buyButton_clicked()
 {
     ui->notificationLabel->hide();
     emit on_buy_btn_clicked();
+    accept();
 }
 
