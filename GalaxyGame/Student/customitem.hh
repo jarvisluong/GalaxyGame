@@ -42,8 +42,19 @@ public:
     Common::Point getLocation();
 
 protected:
+    /*!
+     * \brief name the name that this item bears to
+     */
     std::string name;
+
+    /*!
+     * \brief _location the location that this item bears to
+     */
     Common::Point _location;
+
+    /*!
+     * \brief window the reference to main window
+     */
     MainWindow* window;
 };
 

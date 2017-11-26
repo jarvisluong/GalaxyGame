@@ -27,6 +27,10 @@ public:
      */
     std::shared_ptr<Common::Ship> getShipFromWidgetItem();
 protected:
+
+    /*!
+     * \brief ship is the ship that this item displays to player
+     */
     std::shared_ptr<Common::Ship> ship;
 };
 
