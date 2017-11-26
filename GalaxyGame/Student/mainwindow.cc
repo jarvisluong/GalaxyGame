@@ -136,6 +136,7 @@ void MainWindow::initPlayerShip()
     gameRunner->createActions();
     gameRunner->doActions();
     //
+    this->updateListWidget(galaxy->getShipsInStarSystem(current_star_system_name));
 }
 
 void MainWindow::setStarSystemLabel(std::string starSystemName)
