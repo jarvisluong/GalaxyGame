@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>767</width>
-    <height>470</height>
+    <height>491</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -144,15 +144,9 @@
      <x>0</x>
      <y>0</y>
      <width>767</width>
-     <height>22</height>
+     <height>28</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuGAME_NAME">
-    <property name="title">
-     <string>GAME NAME</string>
-    </property>
-   </widget>
-   <addaction name="menuGAME_NAME"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
