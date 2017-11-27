@@ -47,7 +47,3 @@ void HighScoresDialog::on_pushButton_clicked()
     accept();
 }
 
-void HighScoresDialog::setTextForLabelWhenFileNotExists()
-{
-    ui->label->setText(Constants::no_points_to_show);
-}

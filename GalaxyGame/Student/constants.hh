@@ -53,11 +53,24 @@ public:
      */
     static const Common::Point initialPlayerLocation;
 
+    /*!
+     * \brief no_points_to_show notifies user that (s)he does not have points to display in high scores
+     */
     static const QString no_points_to_show;
 
+    /*!
+     * \brief your_top_10 is the text to display in HighScoresDialog
+     */
     static const QString your_top_10;
 
+    /*!
+     * \brief directory is the directory to top scores file
+     */
     static const QString directory;
+
+    /*!
+     * \brief string0 is number 0 in string
+     */
 
     static const QString string0;
 };

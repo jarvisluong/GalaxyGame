@@ -338,7 +338,6 @@ void MainWindow::on_buy_health_dialog_button_clicked()
 {
     _player_ship->increaseHealth(buy_dialog->getNumberOfHealthToBuy());
     stat_info->reduceCredits(buy_dialog->getNumberOfHealthToBuy() * 5);
-    buy_dialog->close();
 }
 
 void MainWindow::on_buyHealthBtn_clicked()
@@ -356,9 +355,7 @@ void MainWindow::user_wants_to_continue_game()
 {
     qApp->exit(200);
 }
-bool cmp(int i, int j) {
-    return i > j;
-}
+
 void MainWindow::on_highScoreBtn_clicked()
 {
     QFile highScoresFile(Constants::directory);
@@ -373,7 +370,7 @@ void MainWindow::on_highScoreBtn_clicked()
         }
     }
     if(ipoints.size() > 0) {
-        std::sort(ipoints.begin(), ipoints.end(), cmp);
+        std::sort(ipoints.begin(), ipoints.end(), [](int i, int j) {return i > j;});
     }
     highScoreDialog->setInformationForDialog(ipoints);
     highScoreDialog->exec();
